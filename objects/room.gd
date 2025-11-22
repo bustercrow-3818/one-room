@@ -8,6 +8,6 @@ class_name Room
 @export_category("Other Node References")
 @export var goal: Node2D
 
-func _ready() -> void:
-	mob_handler.set_mob_goal(goal)
-	pass
+#func _ready() -> void:
+	#mob_handler.set_mob_goal(goal)
+	#mob_handler.init_path.call_deferred()

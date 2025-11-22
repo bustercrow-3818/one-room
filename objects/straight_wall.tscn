@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://bu3noje23840c"]
+
+[ext_resource type="Texture2D" uid="uid://bsxxufvhx762h" path="res://assets/tiles.png" id="1_0i0uk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8tlvn"]
+atlas = ExtResource("1_0i0uk")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0i0uk"]
+size = Vector2(192, 64)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0i0uk"]
+radius = 16.0
+
+[node name="straight_wall" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-64, 0)
+texture = SubResource("AtlasTexture_8tlvn")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_8tlvn")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(64, 0)
+texture = SubResource("AtlasTexture_8tlvn")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+visible = false
+shape = SubResource("RectangleShape2D_0i0uk")
+
+[node name="mouse_detection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="mouse_detection"]
+shape = SubResource("RectangleShape2D_0i0uk")
+
+[node name="snap_detection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="snap_detection"]
+rotation = 1.5707964
+shape = SubResource("CircleShape2D_0i0uk")
