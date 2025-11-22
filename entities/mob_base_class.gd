@@ -16,6 +16,7 @@ var goal: Node2D
 
 func _ready() -> void:
 	path_init.call_deferred()
+	SignalBus.block_snapped.connect(set_movement_target.bind(target_destination))
 	
 func path_init() -> void:
 	await get_tree().physics_frame

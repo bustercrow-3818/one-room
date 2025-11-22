@@ -14,6 +14,14 @@ config/name="one room"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://assets/icon.svg"
 
+[autoload]
+
+SignalBus="*res://signal_bus.gd"
+
+[debug]
+
+gdscript/warnings/unused_signal=0
+
 [display]
 
 window/size/viewport_width=640
@@ -22,6 +30,7 @@ window/size/viewport_height=640
 [global_group]
 
 snap_location=""
+obstacle=""
 
 [input]
 

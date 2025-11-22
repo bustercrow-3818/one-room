@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://kdws56c0f1mv"]
+
+[ext_resource type="PackedScene" uid="uid://c5rqi38s0x6p" path="res://objects/room.tscn" id="1_4rogm"]
+[ext_resource type="PackedScene" uid="uid://bu3noje23840c" path="res://objects/straight_wall.tscn" id="2_1quxe"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="NavigationRegion2D" parent="." instance=ExtResource("1_4rogm")]
+
+[node name="RigidBody2D" parent="." instance=ExtResource("2_1quxe")]
+position = Vector2(280, 288)
