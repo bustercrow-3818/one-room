@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bu3noje23840c"]
+[gd_scene load_steps=5 format=3 uid="uid://bu3noje23840c"]
 
 [ext_resource type="Texture2D" uid="uid://bsxxufvhx762h" path="res://assets/tiles.png" id="1_0i0uk"]
 [ext_resource type="PackedScene" uid="uid://cieqrfyyix101" path="res://system/components/drag_component.tscn" id="2_8tlvn"]
@@ -10,19 +10,13 @@ size = Vector2(192, 64)
 atlas = ExtResource("1_0i0uk")
 region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8tlvn"]
-size = Vector2(48, 48)
-
 [node name="StaticBody2D" type="StaticBody2D" groups=["obstacle"]]
 
-[node name="drag_component" parent="." node_paths=PackedStringArray("mouse_detection_area", "snap_detection_area") instance=ExtResource("2_8tlvn")]
+[node name="drag_component" parent="." node_paths=PackedStringArray("mouse_detection_area") instance=ExtResource("2_8tlvn")]
 mouse_detection_area = NodePath("../mouse_detection")
-snap_detection_area = NodePath("../snap_detection")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_0i0uk")
-
-[node name="straight_wall" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-64, 0)
@@ -39,8 +33,3 @@ texture = SubResource("AtlasTexture_8tlvn")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="mouse_detection"]
 shape = SubResource("RectangleShape2D_0i0uk")
-
-[node name="snap_detection" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="snap_detection"]
-shape = SubResource("RectangleShape2D_8tlvn")

@@ -3,7 +3,6 @@ class_name Drag
 
 @export_category("Node References")
 @export var mouse_detection_area: Area2D
-@export var snap_detection_area: Area2D
 var parent: Node2D
 
 @export_category("Characteristics")
@@ -18,10 +17,14 @@ enum states {
 	LOCKED
 }
 
-func _ready() -> void:
+func initialize() -> void:
 	parent = get_parent()
+	connect_signals()
+	
+func connect_signals() -> void:
 	mouse_detection_area.mouse_entered.connect(mouse_entered)
 	mouse_detection_area.mouse_exited.connect(mouse_exited)
+	SignalBus.round_start.connect(change_state.bind(states.LOCKED))
 
 func _physics_process(_delta: float) -> void:
 	match state:
@@ -52,18 +55,18 @@ func dragging() -> void:
 	parent.global_position = get_global_mouse_position() - drag_offset
 	
 	if Input.is_action_just_released("left_mouse"):
-		snap_to_position()
+		SignalBus.block_snapped.emit()
 		change_state(states.IDLE)
 	
 func locked() -> void:
 	pass
 
-func snap_to_position() -> void:
-	SignalBus.block_snapped.emit()
-	for i in snap_detection_area.get_overlapping_areas():
-		if i.is_in_group("snap_location"):
-			parent.position = i.global_position
-		else:
-			pass
+#func snap_to_position() -> void:
+	#SignalBus.block_snapped.emit()
+	#for i in snap_detection_area.get_overlapping_areas():
+		#if i.is_in_group("snap_location"):
+			#parent.position = i.global_position
+		#else:
+			#pass
 			
 	

@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://kdws56c0f1mv"]
+
+[ext_resource type="PackedScene" uid="uid://c5rqi38s0x6p" path="res://objects/room.tscn" id="1_5wnch"]
+[ext_resource type="Script" uid="uid://fnrudborlcqa" path="res://objects/main.gd" id="1_n3uw7"]
+[ext_resource type="PackedScene" uid="uid://bu3noje23840c" path="res://objects/straight_wall.tscn" id="2_n3uw7"]
+[ext_resource type="Script" uid="uid://bvjero3ul8fie" path="res://system/mob_handler.gd" id="3_t1t6x"]
+[ext_resource type="PackedScene" uid="uid://wuyu1r1e0d2i" path="res://entities/red_mob.tscn" id="4_xpy5u"]
+[ext_resource type="Script" uid="uid://cgfcnnp1osn2p" path="res://objects/block_handler.gd" id="5_bng5c"]
+[ext_resource type="PackedScene" uid="uid://by1y61ewiw0pm" path="res://objects/goal.tscn" id="6_t1t6x"]
+[ext_resource type="Script" uid="uid://b2pue7uyn5m01" path="res://objects/goal_handler.gd" id="7_txaa0"]
+
+[node name="main" type="Node2D"]
+script = ExtResource("1_n3uw7")
+
+[node name="NavigationRegion2D" parent="." instance=ExtResource("1_5wnch")]
+
+[node name="Button" type="Button" parent="."]
+unique_name_in_owner = true
+offset_left = 1046.0
+offset_right = 1105.0
+offset_bottom = 54.0
+scale = Vector2(1.5, 1.5)
+text = "Start
+Round"
+
+[node name="MobHandler" type="Node2D" parent="." node_paths=PackedStringArray("round_start_button", "escape_point")]
+unique_name_in_owner = true
+script = ExtResource("3_t1t6x")
+round_start_button = NodePath("../Button")
+escape_point = NodePath("../escape")
+metadata/_custom_type_script = "uid://bvjero3ul8fie"
+
+[node name="red_mob" parent="MobHandler" instance=ExtResource("4_xpy5u")]
+position = Vector2(240, 112)
+
+[node name="BlockHandler" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("5_bng5c")
+
+[node name="StaticBody2D" parent="BlockHandler" instance=ExtResource("2_n3uw7")]
+position = Vector2(1135, 164)
+
+[node name="StaticBody2D2" parent="BlockHandler" instance=ExtResource("2_n3uw7")]
+position = Vector2(1135, 413)
+
+[node name="StaticBody2D3" parent="BlockHandler" instance=ExtResource("2_n3uw7")]
+position = Vector2(1135, 328)
+
+[node name="StaticBody2D4" parent="BlockHandler" instance=ExtResource("2_n3uw7")]
+position = Vector2(1135, 246)
+
+[node name="GoalHandler" type="Node2D" parent="."]
+unique_name_in_owner = true
+script = ExtResource("7_txaa0")
+
+[node name="goal" parent="GoalHandler" instance=ExtResource("6_t1t6x")]
+position = Vector2(355, 510)
+
+[node name="goal2" parent="GoalHandler" instance=ExtResource("6_t1t6x")]
+position = Vector2(256, 769)
+
+[node name="goal3" parent="GoalHandler" instance=ExtResource("6_t1t6x")]
+position = Vector2(640, 542)
+
+[node name="escape" type="Node2D" parent="."]
+position = Vector2(932, 932)

@@ -1,0 +1,3 @@
+Currently the goal handler passes its children's position on initialization. Because they can be moved freely before the round starts, this needs to change to being passed when the round starts.
+
+Need to enforce goals staying in the room bounds.

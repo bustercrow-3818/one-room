@@ -1,10 +1,11 @@
 extends CharacterBody2D
 class_name Mob
 
+signal new_goal_request
 
 @export_category("Navigation")
 @export var nav_agent: NavigationAgent2D
-var goal: Node2D
+@export var home_position: Vector2
 
 @export_category("Stats")
 @export var speed: float = 1000
@@ -12,19 +13,25 @@ var goal: Node2D
 
 @export_category("Testing")
 @export var test_mob_ref: Mob
-@export var target_destination: Vector2
 
-func _ready() -> void:
-	path_init.call_deferred()
-	SignalBus.block_snapped.connect(set_movement_target.bind(target_destination))
+var next_goal: Vector2
+
+func initialize() -> void:
+	connect_signals()
+	home_position = global_position
+
+func connect_signals() -> void:
+	nav_agent.target_reached.connect(goal_reached)
 	
 func path_init() -> void:
 	await get_tree().physics_frame
-	
-	set_movement_target(target_destination)
+	set_movement_target(next_goal)
 	
 func set_movement_target(movement_target: Vector2) -> void:
 	nav_agent.target_position = movement_target
+
+func set_destination(destination: Vector2) -> void:
+	next_goal = destination
 
 func set_new_velocity() -> void:
 	var current_position: Vector2 = global_position
@@ -38,3 +45,6 @@ func _physics_process(_delta: float) -> void:
 		
 	set_new_velocity()
 	move_and_slide()
+
+func goal_reached() -> void:
+	new_goal_request.emit()
