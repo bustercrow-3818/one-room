@@ -10,6 +10,7 @@ class_name Room
 
 func _ready() -> void:
 	SignalBus.block_snapped.connect(bake_navigation_polygon)
+	rebake()
 	pass
 	
 	
