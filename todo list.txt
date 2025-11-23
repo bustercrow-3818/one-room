@@ -1,0 +1,2 @@
+Enforce goals staying in the room bounds.
+Enforce possible path to goals.

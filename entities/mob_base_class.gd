@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name Mob
 
 signal new_goal_request
+signal goal_not_reachable
 
 @export_category("Navigation")
 @export var nav_agent: NavigationAgent2D
@@ -10,6 +11,9 @@ signal new_goal_request
 @export_category("Stats")
 @export var speed: float = 1000
 @export var hp: int = 100
+
+@export_category("System Data")
+@export var no_path_message: String
 
 @export_category("Testing")
 @export var test_mob_ref: Mob
@@ -25,6 +29,7 @@ func connect_signals() -> void:
 	
 func path_init() -> void:
 	await get_tree().physics_frame
+	
 	set_movement_target(next_goal)
 	
 func set_movement_target(movement_target: Vector2) -> void:

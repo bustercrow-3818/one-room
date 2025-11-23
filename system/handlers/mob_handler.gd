@@ -20,7 +20,7 @@ func initialize() -> void:
 
 	
 func connect_signals() -> void:
-	SignalBus.round_start.connect(start_round)
+	pass
 
 func start_round() -> void:
 	mob_new_goal_path()
