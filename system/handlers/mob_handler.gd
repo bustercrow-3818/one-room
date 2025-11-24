@@ -17,20 +17,26 @@ func initialize() -> void:
 	for i in get_children():
 		if i.has_method("set_destination"):
 			i.new_goal_request.connect(mob_new_goal_path)
-			set_next_goal()
 	
+	set_next_goal()
 	await get_tree().physics_frame
 	test_path_validity()
 	
 func connect_signals() -> void:
 	SignalBus.block_snapped.connect(test_path_validity)
+	pass
 
 func test_path_validity() -> void:
-	set_next_goal()
 	await get_tree().physics_frame
 	
 	var test_mob: Mob = get_child(0)
-	ready_for_round = test_mob.get_path_vailidity()
+	
+	if await test_mob.is_path_valid():
+		ready_for_round = true
+	else:
+		ready_for_round = false
+	
+	ready_for_round = await test_mob.is_path_valid()
 
 func start_round() -> void:
 	mob_new_goal_path()
@@ -39,10 +45,10 @@ func start_round() -> void:
 		if i is Mob:
 			i.round_started = true
 
-func mob_path_start() -> void:
-	for i in get_children():
-		if i is Mob:
-			i.path_init()
+#func mob_path_start() -> void:
+	#for i in get_children():
+		#if i is Mob:
+			#i.path_init()
 
 #region Setters
 func set_goals(goals: Array[Vector2]) -> void:
@@ -73,4 +79,4 @@ func is_ready_for_round() -> bool:
 
 func mob_new_goal_path() -> void:
 	set_next_goal()
-	mob_path_start()
+	#mob_path_start()

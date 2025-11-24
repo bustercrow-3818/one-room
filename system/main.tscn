@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://kdws56c0f1mv"]
+[gd_scene load_steps=13 format=3 uid="uid://kdws56c0f1mv"]
 
 [ext_resource type="Script" uid="uid://fnrudborlcqa" path="res://system/main.gd" id="1_7rmty"]
 [ext_resource type="PackedScene" uid="uid://c5rqi38s0x6p" path="res://objects/room.tscn" id="2_2soig"]
@@ -8,6 +8,12 @@
 [ext_resource type="PackedScene" uid="uid://bu3noje23840c" path="res://objects/straight_wall.tscn" id="6_qs5jh"]
 [ext_resource type="Script" uid="uid://b2pue7uyn5m01" path="res://system/handlers/goal_handler.gd" id="7_io3fq"]
 [ext_resource type="PackedScene" uid="uid://by1y61ewiw0pm" path="res://objects/goal.tscn" id="8_jqgdb"]
+[ext_resource type="PackedScene" uid="uid://c5nnh7twpycrw" path="res://system/player_interface.tscn" id="9_5231d"]
+[ext_resource type="Script" uid="uid://btta0jg43g3ns" path="res://system/escape.gd" id="9_i8srq"]
+[ext_resource type="Script" uid="uid://x1pbmgbiv0n3" path="res://system/player_interface.gd" id="10_i8srq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5231d"]
+radius = 24.0
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_7rmty")
@@ -16,9 +22,10 @@ script = ExtResource("1_7rmty")
 
 [node name="Button" type="Button" parent="."]
 unique_name_in_owner = true
-offset_left = 1046.0
-offset_right = 1105.0
-offset_bottom = 54.0
+offset_left = 1103.0
+offset_top = 26.0
+offset_right = 1162.0
+offset_bottom = 80.0
 scale = Vector2(1.5, 1.5)
 text = "Start
 Round"
@@ -49,9 +56,10 @@ position = Vector2(1135, 328)
 [node name="StaticBody2D4" parent="BlockHandler" instance=ExtResource("6_qs5jh")]
 position = Vector2(1135, 246)
 
-[node name="GoalHandler" type="Node2D" parent="." groups=["handler"]]
+[node name="GoalHandler" type="Node2D" parent="." node_paths=PackedStringArray("player") groups=["handler"]]
 unique_name_in_owner = true
 script = ExtResource("7_io3fq")
+player = NodePath("../player_interface")
 
 [node name="goal" parent="GoalHandler" instance=ExtResource("8_jqgdb")]
 position = Vector2(355, 510)
@@ -65,5 +73,15 @@ position = Vector2(640, 542)
 [node name="escape" type="Node2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(932, 932)
+script = ExtResource("9_i8srq")
+
+[node name="Area2D" type="Area2D" parent="escape"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="escape/Area2D"]
+shape = SubResource("CircleShape2D_5231d")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+
+[node name="player_interface" parent="." instance=ExtResource("9_5231d")]
+position = Vector2(544, 639)
+script = ExtResource("10_i8srq")

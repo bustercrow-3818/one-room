@@ -16,10 +16,10 @@ func set_goals() -> void:
 func ready_check() -> void:
 	for i in get_tree().get_nodes_in_group("handler"):
 		if i.is_ready_for_round():
-			print("all clear, proceeding with round")
+			print("%s clear, proceeding with round" % i.name)
 			pass
 		elif i.is_ready_for_round() == false:
-			print("found a problem, should not proceed")
+			print("%s found a problem, should not proceed" % i.name)
 			return
 	
 	round_start()
