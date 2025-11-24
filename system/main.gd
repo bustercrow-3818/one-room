@@ -8,7 +8,6 @@ func _ready() -> void:
 	propagate_call("initialize", [], true)
 
 func connect_signals() -> void:
-	%Button.pressed.connect(SignalBus.round_start.emit)
 	%Button.pressed.connect(ready_check)
 	
 func set_goals() -> void:
@@ -17,12 +16,15 @@ func set_goals() -> void:
 func ready_check() -> void:
 	for i in get_tree().get_nodes_in_group("handler"):
 		if i.is_ready_for_round():
-			round_start()
+			print("all clear, proceeding with round")
+			pass
 		elif i.is_ready_for_round() == false:
-			for j in error_messages:
-				print(j)
+			print("found a problem, should not proceed")
 			return
+	
+	round_start()
 
 func round_start() -> void:
+	SignalBus.round_start.emit()
 	set_goals()
 	%MobHandler.start_round()

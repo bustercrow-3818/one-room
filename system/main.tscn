@@ -12,7 +12,7 @@
 [node name="main" type="Node2D"]
 script = ExtResource("1_7rmty")
 
-[node name="NavigationRegion2D" parent="." groups=["handler"] instance=ExtResource("2_2soig")]
+[node name="NavigationRegion2D" parent="." instance=ExtResource("2_2soig")]
 
 [node name="Button" type="Button" parent="."]
 unique_name_in_owner = true
@@ -63,6 +63,7 @@ position = Vector2(256, 769)
 position = Vector2(640, 542)
 
 [node name="escape" type="Node2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(932, 932)
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

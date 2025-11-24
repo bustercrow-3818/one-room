@@ -19,12 +19,17 @@ func initialize() -> void:
 			i.new_goal_request.connect(mob_new_goal_path)
 			set_next_goal()
 	
+	await get_tree().physics_frame
+	test_path_validity()
+	
 func connect_signals() -> void:
 	SignalBus.block_snapped.connect(test_path_validity)
 
 func test_path_validity() -> void:
-	var test_mob: Mob = get_child(0)
+	set_next_goal()
+	await get_tree().physics_frame
 	
+	var test_mob: Mob = get_child(0)
 	ready_for_round = test_mob.get_path_vailidity()
 
 func start_round() -> void:

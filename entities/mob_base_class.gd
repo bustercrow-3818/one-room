@@ -50,7 +50,17 @@ func set_new_velocity() -> void:
 
 #region Getters
 func get_path_vailidity() -> bool:
-	return nav_agent.is_target_reachable()
+	var test: bool
+	
+	if nav_agent.get_next_path_position() == global_position:
+		test = false
+	else:
+		test = true
+	
+	print("path valid: %s" % test)
+	print("path points are %s" % nav_agent.get_path_to(%escape))
+	print("agent position is %s" % global_position)
+	return test
 	
 #endregion
 
