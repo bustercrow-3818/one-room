@@ -12,7 +12,7 @@
 [node name="main" type="Node2D"]
 script = ExtResource("1_7rmty")
 
-[node name="NavigationRegion2D" parent="." instance=ExtResource("2_2soig")]
+[node name="NavigationRegion2D" parent="." groups=["handler"] instance=ExtResource("2_2soig")]
 
 [node name="Button" type="Button" parent="."]
 unique_name_in_owner = true
@@ -23,7 +23,7 @@ scale = Vector2(1.5, 1.5)
 text = "Start
 Round"
 
-[node name="MobHandler" type="Node2D" parent="." node_paths=PackedStringArray("round_start_button", "escape_point")]
+[node name="MobHandler" type="Node2D" parent="." node_paths=PackedStringArray("round_start_button", "escape_point") groups=["handler"]]
 unique_name_in_owner = true
 script = ExtResource("3_5231d")
 round_start_button = NodePath("../Button")
@@ -33,7 +33,7 @@ metadata/_custom_type_script = "uid://bvjero3ul8fie"
 [node name="red_mob" parent="MobHandler" instance=ExtResource("4_i8srq")]
 position = Vector2(240, 112)
 
-[node name="BlockHandler" type="Node2D" parent="."]
+[node name="BlockHandler" type="Node2D" parent="." groups=["handler"]]
 unique_name_in_owner = true
 script = ExtResource("5_3mgql")
 
@@ -49,7 +49,7 @@ position = Vector2(1135, 328)
 [node name="StaticBody2D4" parent="BlockHandler" instance=ExtResource("6_qs5jh")]
 position = Vector2(1135, 246)
 
-[node name="GoalHandler" type="Node2D" parent="."]
+[node name="GoalHandler" type="Node2D" parent="." groups=["handler"]]
 unique_name_in_owner = true
 script = ExtResource("7_io3fq")
 

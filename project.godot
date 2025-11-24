@@ -31,6 +31,7 @@ window/size/viewport_height=640
 
 snap_location=""
 obstacle=""
+handler=""
 
 [input]
 

@@ -5,6 +5,7 @@ class_name MobHandler
 @export var round_start_button: Button
 @export var escape_point: Node2D
 
+var ready_for_round: bool = true
 var goal_list: Array[Vector2]
 var next_goal: Vector2
 var escape: Vector2
@@ -17,20 +18,28 @@ func initialize() -> void:
 		if i.has_method("set_destination"):
 			i.new_goal_request.connect(mob_new_goal_path)
 			set_next_goal()
-
 	
 func connect_signals() -> void:
-	pass
+	SignalBus.block_snapped.connect(test_path_validity)
+
+func test_path_validity() -> void:
+	var test_mob: Mob = get_child(0)
+	
+	ready_for_round = test_mob.get_path_vailidity()
 
 func start_round() -> void:
 	mob_new_goal_path()
-	pass
+	
+	for i in get_children():
+		if i is Mob:
+			i.round_started = true
 
 func mob_path_start() -> void:
 	for i in get_children():
 		if i is Mob:
 			i.path_init()
 
+#region Setters
 func set_goals(goals: Array[Vector2]) -> void:
 	goal_list = goals.duplicate()
 
@@ -48,6 +57,14 @@ func set_next_goal() -> void:
 		goal_list.erase(next_goal)
 		
 	set_mob_new_goal(next_goal)
+
+#endregion
+
+#region Getters
+func is_ready_for_round() -> bool:
+	return ready_for_round
+
+#endregion
 
 func mob_new_goal_path() -> void:
 	set_next_goal()

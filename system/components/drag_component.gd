@@ -60,13 +60,3 @@ func dragging() -> void:
 	
 func locked() -> void:
 	pass
-
-#func snap_to_position() -> void:
-	#SignalBus.block_snapped.emit()
-	#for i in snap_detection_area.get_overlapping_areas():
-		#if i.is_in_group("snap_location"):
-			#parent.position = i.global_position
-		#else:
-			#pass
-			
-	

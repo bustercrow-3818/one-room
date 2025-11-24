@@ -9,7 +9,7 @@ vertices = PackedVector2Array(944, 944, 80, 944, 80, 80, 944, 80)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 source_geometry_mode = 1
 source_geometry_group_name = &"obstacle"
-agent_radius = 16.0
+agent_radius = 24.0
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_lvljb"]
 tile_data = PackedInt32Array(0, 1, 0, 1, 1, 0, 2, 1, 0)

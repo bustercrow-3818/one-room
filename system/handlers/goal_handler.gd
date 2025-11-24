@@ -1,5 +1,7 @@
 extends Node2D
 
+var ready_for_round: bool = true
+
 func initialize() -> void:
 	connect_signals()
 	for i in get_children():
@@ -19,3 +21,6 @@ func get_goals() -> Array[Vector2]:
 		goals.append(i.position)
 	
 	return goals
+
+func is_ready_for_round() -> bool:
+	return ready_for_round

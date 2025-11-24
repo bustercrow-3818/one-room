@@ -19,6 +19,7 @@ signal goal_not_reachable
 @export var test_mob_ref: Mob
 
 var next_goal: Vector2
+var round_started: bool = false
 
 func initialize() -> void:
 	connect_signals()
@@ -31,7 +32,8 @@ func path_init() -> void:
 	await get_tree().physics_frame
 	
 	set_movement_target(next_goal)
-	
+
+#region Setters
 func set_movement_target(movement_target: Vector2) -> void:
 	nav_agent.target_position = movement_target
 
@@ -43,13 +45,23 @@ func set_new_velocity() -> void:
 	var next_position: Vector2 = nav_agent.get_next_path_position()
 	
 	velocity = current_position.direction_to(next_position) * speed
+	
+#endregion
+
+#region Getters
+func get_path_vailidity() -> bool:
+	return nav_agent.is_target_reachable()
+	
+#endregion
+
 
 func _physics_process(_delta: float) -> void:
 	if nav_agent.is_navigation_finished():
 		return
-		
-	set_new_velocity()
-	move_and_slide()
+	
+	if round_started:
+		set_new_velocity()
+		move_and_slide()
 
 func goal_reached() -> void:
 	new_goal_request.emit()
