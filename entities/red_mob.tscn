@@ -10,8 +10,7 @@ motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_qh3rw")
 nav_agent = NodePath("NavigationAgent2D")
-speed = 100.0
-no_path_message = "One or more goals not reachable"
+speed = 150.0
 metadata/_custom_type_script = "uid://ckxbc6rnrinrk"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -27,5 +26,3 @@ path_desired_distance = 32.0
 target_desired_distance = 4.0
 path_max_distance = 10.0
 debug_enabled = true
-
-[node name="path_check" type="NavigationAgent2D" parent="."]

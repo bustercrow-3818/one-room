@@ -2,16 +2,13 @@ extends CharacterBody2D
 class_name Mob
 
 signal new_goal_request
-signal goal_not_reachable
 
 @export_category("Navigation")
 @export var nav_agent: NavigationAgent2D
-@export var path_check: NavigationAgent2D
 @export var home_position: Vector2
 
 @export_category("Stats")
 @export var speed: float = 1000
-@export var hp: int = 100
 
 var goals: Array[Vector2]
 var next_goal: Vector2
@@ -40,7 +37,6 @@ func set_movement_target(movement_target: Vector2) -> void:
 		pass
 	else:
 		new_goal_request.emit()
-		
 
 func set_destination(destination: Vector2) -> void:
 	next_goal = destination
@@ -56,44 +52,6 @@ func set_new_velocity() -> void:
 
 #region Getters
 
-func is_path_valid() -> bool:
-	var map_rid: RID
-	var path_array: Array[Vector2]
-	
-	for i in goals:
-		path_check.target = i
-		await get_tree().physics_frame
-		
-		map_rid = path_check.get_navigation_map()
-		path_array = NavigationServer2D.map_get_path(map_rid, global_position, i, true)
-		
-		if path_array.size() == 0:
-			return false
-		elif path_array[-1] != i:
-			return false
-		else:
-			return true
-	return true
-
-func get_path_validity() -> bool:
-	var test: bool
-	var map_rid = nav_agent.get_navigation_map()
-	var path_array = NavigationServer2D.map_get_path(map_rid, global_position, next_goal, true)
-	
-	if path_array[-1] != next_goal:
-		test = false
-	else:
-		test = true
-	
-	return test
-
-func is_target_reachable(target: Vector2) -> bool:
-	nav_agent.target_position = target
-	
-	if nav_agent.is_target_reachable():
-		return true
-	else:
-		return false
 #endregion
 
 func _physics_process(_delta: float) -> void:
