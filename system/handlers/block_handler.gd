@@ -1,14 +1,13 @@
 extends Node2D
 
-var ready_for_round: bool = true
+var ready_for_round: bool = false
+var unplaced_blocks: Array[StaticBody2D]
 
 func initialize() -> void:
-	connect_signals()
 	for i in get_children():
-		if i.has_method("initialize"):
-			i.initialize()
-		else:
-			pass
+		if i is StaticBody2D:
+			unplaced_blocks.append(i)
+	connect_signals()
 	
 func connect_signals() -> void:
 	

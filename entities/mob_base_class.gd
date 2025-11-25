@@ -12,7 +12,7 @@ signal new_goal_request
 
 var goals: Array[Vector2]
 var next_goal: Vector2
-var round_started: bool = false
+var ready_to_move: bool = false
 
 func initialize() -> void:
 	connect_signals()
@@ -20,6 +20,7 @@ func initialize() -> void:
 
 func connect_signals() -> void:
 	nav_agent.target_reached.connect(goal_reached)
+	SignalBus.end_of_round.connect(end_of_round)
 	
 func path_init() -> void:
 	await get_tree().physics_frame
@@ -58,9 +59,18 @@ func _physics_process(_delta: float) -> void:
 	if nav_agent.is_navigation_finished():
 		return
 	
-	if round_started:
+	elif ready_to_move:
 		set_new_velocity()
 		move_and_slide()
 
+	if global_position == nav_agent.target_position:
+		nav_agent.target_position = Vector2.ZERO
+		goal_reached()
+	
 func goal_reached() -> void:
-	new_goal_request.emit()
+	if nav_agent.target_position != %escape.global_position:
+		new_goal_request.emit()
+
+func end_of_round() -> void:
+	nav_agent.target_position = global_position
+	ready_to_move = false

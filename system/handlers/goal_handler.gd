@@ -1,5 +1,7 @@
 extends Node2D
 
+signal end_of_round
+
 @export var player: Player
 
 var ready_for_round: bool = true
@@ -44,13 +46,13 @@ func is_ready_for_round() -> bool:
 func end_round_cleanup() -> void:
 	for i in active_goals:
 		if i is Goal and i.is_ready_to_pickup():
-			i.reward_animation()
-			player.adjust_money(2)
+			i.penalty_animation()
+			player.adjust_money(-1)
 			await i.animation.animation_finished
-		
-	active_goals.clear()
+			
+	SignalBus.end_of_round.emit()
 
 func mob_pickup(goal_id: Goal) -> void:
 	goal_id.set_pickup_ready_status(false)
-	goal_id.penalty_animation()
-	player.adjust_money(-1)
+	goal_id.reward_animation()
+	player.adjust_money(1)

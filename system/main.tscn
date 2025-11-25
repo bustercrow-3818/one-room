@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://kdws56c0f1mv"]
+[gd_scene load_steps=14 format=3 uid="uid://kdws56c0f1mv"]
 
 [ext_resource type="Script" uid="uid://fnrudborlcqa" path="res://system/main.gd" id="1_7rmty"]
 [ext_resource type="PackedScene" uid="uid://c5rqi38s0x6p" path="res://objects/room.tscn" id="2_2soig"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://wuyu1r1e0d2i" path="res://entities/red_mob.tscn" id="4_i8srq"]
 [ext_resource type="Script" uid="uid://cgfcnnp1osn2p" path="res://system/handlers/block_handler.gd" id="5_3mgql"]
 [ext_resource type="PackedScene" uid="uid://bu3noje23840c" path="res://objects/straight_wall.tscn" id="6_qs5jh"]
+[ext_resource type="Script" uid="uid://ct1vrjqn6e7pq" path="res://objects/wall.gd" id="7_3mgql"]
 [ext_resource type="Script" uid="uid://b2pue7uyn5m01" path="res://system/handlers/goal_handler.gd" id="7_io3fq"]
 [ext_resource type="PackedScene" uid="uid://by1y61ewiw0pm" path="res://objects/goal.tscn" id="8_jqgdb"]
 [ext_resource type="PackedScene" uid="uid://c5nnh7twpycrw" path="res://system/player_interface.tscn" id="9_5231d"]
@@ -38,7 +39,7 @@ escape_point = NodePath("../escape")
 metadata/_custom_type_script = "uid://bvjero3ul8fie"
 
 [node name="red_mob" parent="MobHandler" instance=ExtResource("4_i8srq")]
-position = Vector2(240, 112)
+position = Vector2(512, 512)
 
 [node name="BlockHandler" type="Node2D" parent="." groups=["handler"]]
 unique_name_in_owner = true
@@ -46,15 +47,7 @@ script = ExtResource("5_3mgql")
 
 [node name="StaticBody2D" parent="BlockHandler" instance=ExtResource("6_qs5jh")]
 position = Vector2(1135, 164)
-
-[node name="StaticBody2D2" parent="BlockHandler" instance=ExtResource("6_qs5jh")]
-position = Vector2(1135, 413)
-
-[node name="StaticBody2D3" parent="BlockHandler" instance=ExtResource("6_qs5jh")]
-position = Vector2(1135, 328)
-
-[node name="StaticBody2D4" parent="BlockHandler" instance=ExtResource("6_qs5jh")]
-position = Vector2(1135, 246)
+script = ExtResource("7_3mgql")
 
 [node name="GoalHandler" type="Node2D" parent="." node_paths=PackedStringArray("player") groups=["handler"]]
 unique_name_in_owner = true
@@ -72,7 +65,7 @@ position = Vector2(640, 542)
 
 [node name="escape" type="Node2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(932, 932)
+position = Vector2(512, 512)
 script = ExtResource("9_i8srq")
 
 [node name="Area2D" type="Area2D" parent="escape"]

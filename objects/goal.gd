@@ -16,6 +16,7 @@ var ready_to_pickup: bool = true
 
 func connect_signals() -> void:
 	area.body_entered.connect(is_mob_detected)
+	SignalBus.end_of_round.connect(reward_animation.bind(false))
 
 func is_mob_detected(body: Node2D) -> void:
 	if body is Mob:
@@ -31,8 +32,14 @@ func set_pickup_ready_status(status: bool) -> void:
 func reset_animation() -> void:
 	animation.play("RESET")
 
-func reward_animation() -> void:
-	animation.play("reward")
+func reward_animation(forward: bool = true) -> void:
+	if not forward:
+		animation.play_backwards("reward")
+	else:
+		animation.play("reward")
 
-func penalty_animation() -> void:
-	animation.play("penalty")
+func penalty_animation(forward: bool = true) -> void:
+	if not forward:
+		animation.play_backwards("penalty")
+	else:
+		animation.play("penalty")

@@ -18,7 +18,6 @@ func initialize() -> void:
 		if i.has_method("set_destination"):
 			i.new_goal_request.connect(set_next_goal)
 	
-	set_next_goal()
 	await get_tree().physics_frame
 	
 func connect_signals() -> void:
@@ -30,7 +29,7 @@ func start_round() -> void:
 	
 	for i in get_children():
 		if i is Mob:
-			i.round_started = true
+			i.ready_to_move = true
 
 #region Setters
 func set_goals(goals: Array[Vector2]) -> void:
@@ -44,6 +43,8 @@ func set_mob_new_goal(goal: Vector2) -> void:
 func set_next_goal() -> void:
 	if goal_list.is_empty():
 		next_goal = escape
+		SignalBus.mob_approaching_escape.emit()
+		print("heading to escape")
 		
 	else:
 		next_goal = goal_list.pick_random()
