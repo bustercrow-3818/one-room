@@ -13,12 +13,6 @@ signal goal_not_reachable
 @export var speed: float = 1000
 @export var hp: int = 100
 
-@export_category("System Data")
-@export var no_path_message: String
-
-@export_category("Testing")
-@export var test_mob_ref: Mob
-
 var goals: Array[Vector2]
 var next_goal: Vector2
 var round_started: bool = false
@@ -41,6 +35,12 @@ func set_goals(goals_list: Array[Vector2]) -> void:
 
 func set_movement_target(movement_target: Vector2) -> void:
 	nav_agent.target_position = movement_target
+	
+	if nav_agent.is_target_reachable():
+		pass
+	else:
+		new_goal_request.emit()
+		
 
 func set_destination(destination: Vector2) -> void:
 	next_goal = destination
@@ -68,13 +68,10 @@ func is_path_valid() -> bool:
 		path_array = NavigationServer2D.map_get_path(map_rid, global_position, i, true)
 		
 		if path_array.size() == 0:
-			print("failed to get a path to check")
 			return false
 		elif path_array[-1] != i:
-			print("can't find a way to the end")
 			return false
 		else:
-			print("valid path found")
 			return true
 	return true
 
@@ -83,17 +80,20 @@ func get_path_validity() -> bool:
 	var map_rid = nav_agent.get_navigation_map()
 	var path_array = NavigationServer2D.map_get_path(map_rid, global_position, next_goal, true)
 	
-	if path_array.size() == 0:
-		print("something went wrong when testing path")
-	elif path_array[-1] != next_goal:
+	if path_array[-1] != next_goal:
 		test = false
-		print("can't find a way to the end")
 	else:
 		test = true
-		print("valid path found")
 	
 	return test
+
+func is_target_reachable(target: Vector2) -> bool:
+	nav_agent.target_position = target
 	
+	if nav_agent.is_target_reachable():
+		return true
+	else:
+		return false
 #endregion
 
 func _physics_process(_delta: float) -> void:

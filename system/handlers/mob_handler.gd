@@ -16,7 +16,7 @@ func initialize() -> void:
 	
 	for i in get_children():
 		if i.has_method("set_destination"):
-			i.new_goal_request.connect(mob_new_goal_path)
+			i.new_goal_request.connect(set_next_goal)
 	
 	set_next_goal()
 	await get_tree().physics_frame
@@ -39,16 +39,11 @@ func test_path_validity() -> void:
 	ready_for_round = await test_mob.is_path_valid()
 
 func start_round() -> void:
-	mob_new_goal_path()
+	set_next_goal()
 	
 	for i in get_children():
 		if i is Mob:
 			i.round_started = true
-
-#func mob_path_start() -> void:
-	#for i in get_children():
-		#if i is Mob:
-			#i.path_init()
 
 #region Setters
 func set_goals(goals: Array[Vector2]) -> void:
@@ -66,7 +61,7 @@ func set_next_goal() -> void:
 	else:
 		next_goal = goal_list.pick_random()
 		goal_list.erase(next_goal)
-		
+	
 	set_mob_new_goal(next_goal)
 
 #endregion
@@ -76,7 +71,3 @@ func is_ready_for_round() -> bool:
 	return ready_for_round
 
 #endregion
-
-func mob_new_goal_path() -> void:
-	set_next_goal()
-	#mob_path_start()
