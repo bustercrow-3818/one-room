@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://bvjero3ul8fie" path="res://system/handlers/mob_handler.gd" id="3_5231d"]
 [ext_resource type="PackedScene" uid="uid://wuyu1r1e0d2i" path="res://entities/red_mob.tscn" id="4_i8srq"]
 [ext_resource type="PackedScene" uid="uid://cbk6tnuy58hld" path="res://system/handlers/block_handler.tscn" id="5_5231d"]
-[ext_resource type="PackedScene" uid="uid://bu3noje23840c" path="res://objects/straight_wall.tscn" id="6_qs5jh"]
+[ext_resource type="PackedScene" uid="uid://bu3noje23840c" path="res://objects/line_wall.tscn" id="6_qs5jh"]
 [ext_resource type="Script" uid="uid://b2pue7uyn5m01" path="res://system/handlers/goal_handler.gd" id="7_io3fq"]
 [ext_resource type="PackedScene" uid="uid://by1y61ewiw0pm" path="res://objects/goal.tscn" id="8_jqgdb"]
 [ext_resource type="PackedScene" uid="uid://c5nnh7twpycrw" path="res://system/player_interface.tscn" id="9_5231d"]
@@ -43,8 +43,11 @@ position = Vector2(512, 512)
 unique_name_in_owner = true
 
 [node name="StaticBody2D" parent="BlockHandler" instance=ExtResource("6_qs5jh")]
-position = Vector2(1152, 192)
+position = Vector2(1184, 256)
 rotation = 0.7853982
+
+[node name="StaticBody2D2" parent="BlockHandler" instance=ExtResource("6_qs5jh")]
+position = Vector2(1206, 576)
 
 [node name="GoalHandler" type="Node2D" parent="." node_paths=PackedStringArray("player") groups=["handler"]]
 unique_name_in_owner = true

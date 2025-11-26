@@ -25,7 +25,7 @@ func is_ready_for_round() -> bool:
 			return false
 		
 		for j in areas:
-			if j.is_in_group("out_of_bounds_area"):
+			if j.is_in_group("out_of_bounds_area") or j.is_in_group("obstacle"):
 				i.play_invalid_animation()
 				return false
 			else:
@@ -36,7 +36,7 @@ func is_ready_for_round() -> bool:
 func ready_check() -> void:
 	pass
 
-func create_new_block(type: String = "random") -> Block: ## Type of block can be designated by name
+func create_new_block(spawn_point: Vector2, type: String = "random") -> Block: ## Type of block can be designated by name
 	var new_block: Block
 	
 	if type == "random":
@@ -51,7 +51,7 @@ func create_new_block(type: String = "random") -> Block: ## Type of block can be
 	
 	call_deferred("add_child", new_block)
 	new_block.propagate_call("initialize")
-	new_block.position = Vector2(1152, 192)
+	new_block.position = spawn_point
 	new_block.rotation_degrees = snappedi(randi_range(0, 180), 45)
 		
 	return new_block

@@ -7,6 +7,7 @@ signal earned_by_player
 signal earned_by_mob
 
 @onready var animation: AnimationPlayer = $AnimationPlayer
+@onready var pickup_sound: AudioStreamPlayer = $AudioStreamPlayer
 @onready var area: Area2D = $Area2D
 
 @export var player_reward: int
@@ -20,6 +21,7 @@ func connect_signals() -> void:
 
 func is_mob_detected(body: Node2D) -> void:
 	if body is Mob:
+		pickup_sound.play()
 		goal_picked_up.emit(self)
 
 func is_ready_to_pickup() -> bool:

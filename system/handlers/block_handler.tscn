@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cbk6tnuy58hld"]
 
 [ext_resource type="Script" uid="uid://cgfcnnp1osn2p" path="res://system/handlers/block_handler.gd" id="1_6wgbx"]
-[ext_resource type="PackedScene" uid="uid://bu3noje23840c" path="res://objects/straight_wall.tscn" id="2_dqaie"]
+[ext_resource type="PackedScene" uid="uid://bu3noje23840c" path="res://objects/line_wall.tscn" id="2_dqaie"]
 [ext_resource type="PackedScene" uid="uid://cpy5gf4qow5gm" path="res://objects/l_wall_r.tscn" id="3_dqaie"]
 
 [node name="BlockHandler" type="Node2D" groups=["handler"]]

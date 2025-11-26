@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://ckxbc6rnrinrk" path="res://entities/mob_base_class.gd" id="1_qh3rw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4nkwl"]
+radius = 8.0
 
 [node name="red_mob" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent")]
 motion_mode = 1
@@ -22,6 +23,6 @@ texture = ExtResource("1_eenp2")
 shape = SubResource("CircleShape2D_4nkwl")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-path_desired_distance = 32.0
+path_desired_distance = 4.0
 target_desired_distance = 4.0
-path_max_distance = 10.0
+avoidance_enabled = true

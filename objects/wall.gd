@@ -4,10 +4,13 @@ class_name Block
 @onready var animation: AnimationPlayer = $AnimationPlayer
 @onready var detection_area: Area2D = $mouse_detection
 
+@export_range(0, 180, 45) var rotation_variation_degrees: int
+
 var block_placed_status: bool = false
 var locked: bool = false
 
 func initialize() -> void:
+	rotation_degrees = snappedi(randi_range(0, 360), rotation_variation_degrees)
 	connect_signals()
 	
 func connect_signals() -> void:

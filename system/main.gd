@@ -30,7 +30,5 @@ func round_start() -> void:
 	%MobHandler.start_round()
 
 func end_of_round() -> void:
-	%BlockHandler.create_new_block()
-	%BlockHandler.create_new_block()
-	
-	pass
+	%BlockHandler.create_new_block(Vector2(1206, 256))
+	%BlockHandler.create_new_block(Vector2(1206, 576))
