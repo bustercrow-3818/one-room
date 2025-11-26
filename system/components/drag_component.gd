@@ -7,6 +7,7 @@ var parent: Node2D
 
 @export_category("Characteristics")
 @export var state: states = states.IDLE
+@export var latching: bool = false
 
 var mouse_detection: bool = false
 var drag_offset: Vector2
@@ -25,6 +26,7 @@ func connect_signals() -> void:
 	mouse_detection_area.mouse_entered.connect(mouse_entered)
 	mouse_detection_area.mouse_exited.connect(mouse_exited)
 	SignalBus.round_start.connect(change_state.bind(states.LOCKED))
+	SignalBus.end_of_round.connect(unlock)
 
 func _physics_process(_delta: float) -> void:
 	match state:
@@ -60,3 +62,10 @@ func dragging() -> void:
 	
 func locked() -> void:
 	pass
+
+func unlock() -> void:
+	if not latching and state == states.LOCKED:
+		change_state(states.IDLE)
+
+func get_overlapping_areas() -> Array[Area2D]:
+	return mouse_detection_area.get_overlapping_areas()

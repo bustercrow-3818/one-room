@@ -54,8 +54,14 @@ func set_next_goal() -> void:
 
 #endregion
 
+func ready_check() -> void:
+	
+	pass
+	
 #region Getters
 func is_ready_for_round() -> bool:
+	
+	
 	return ready_for_round
 
 #endregion

@@ -10,7 +10,7 @@ motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_qh3rw")
 nav_agent = NodePath("NavigationAgent2D")
-speed = 200.0
+speed = 300.0
 metadata/_custom_type_script = "uid://ckxbc6rnrinrk"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

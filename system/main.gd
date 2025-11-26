@@ -9,6 +9,7 @@ func _ready() -> void:
 
 func connect_signals() -> void:
 	%Button.pressed.connect(ready_check)
+	SignalBus.end_of_round.connect(end_of_round)
 	
 func set_goals() -> void:
 	%MobHandler.set_goals(%GoalHandler.get_goals())
@@ -27,3 +28,9 @@ func round_start() -> void:
 	SignalBus.round_start.emit()
 	set_goals()
 	%MobHandler.start_round()
+
+func end_of_round() -> void:
+	%BlockHandler.create_new_block()
+	%BlockHandler.create_new_block()
+	
+	pass

@@ -26,7 +26,7 @@ gdscript/warnings/unused_signal=0
 
 [display]
 
-window/size/viewport_width=640
+window/size/viewport_width=1024
 window/size/viewport_height=640
 
 [global_group]
@@ -34,6 +34,8 @@ window/size/viewport_height=640
 snap_location=""
 obstacle=""
 handler=""
+in_bounds_area=""
+out_of_bounds_area=""
 
 [input]
 

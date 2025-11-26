@@ -1,55 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://bu3noje23840c"]
+[gd_scene load_steps=9 format=3 uid="uid://cpy5gf4qow5gm"]
 
-[ext_resource type="Texture2D" uid="uid://bsxxufvhx762h" path="res://assets/tiles.png" id="1_0i0uk"]
-[ext_resource type="Script" uid="uid://ct1vrjqn6e7pq" path="res://objects/wall.gd" id="1_2ullp"]
-[ext_resource type="PackedScene" uid="uid://cieqrfyyix101" path="res://system/components/drag_component.tscn" id="2_8tlvn"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0i0uk"]
-size = Vector2(192, 64)
+[ext_resource type="Script" uid="uid://ct1vrjqn6e7pq" path="res://objects/wall.gd" id="1_tx1tw"]
+[ext_resource type="PackedScene" uid="uid://cieqrfyyix101" path="res://system/components/drag_component.tscn" id="2_tb1vv"]
+[ext_resource type="Texture2D" uid="uid://bsxxufvhx762h" path="res://assets/tiles.png" id="3_k6fid"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8tlvn"]
-atlas = ExtResource("1_0i0uk")
+atlas = ExtResource("3_k6fid")
 region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="Animation" id="Animation_8tlvn"]
-resource_name = "locked_in"
-length = 0.35
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("locked_in_line:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.35),
-"transitions": PackedFloat32Array(1, 0.176, 1),
-"update": 0,
-"values": [Vector2(3, 3), Vector2(1.5, 1.5), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("locked_in_line:default_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0625),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0.23, 0.92, 0), Color(0, 0.22949219, 0.91796875, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("idle_line:default_color")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_2ullp"]
 length = 0.001
@@ -154,6 +111,46 @@ tracks/2/keys = {
 "values": [Vector2(1, 1), Vector2(2, 2), Vector2(1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_8tlvn"]
+resource_name = "locked_in"
+length = 0.35
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("locked_in_line:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.35),
+"transitions": PackedFloat32Array(1, 0.176, 1),
+"update": 0,
+"values": [Vector2(3, 3), Vector2(1.5, 1.5), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("locked_in_line:default_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0625),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0.23, 0.92, 0), Color(0, 0.22949219, 0.91796875, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("idle_line:default_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2ullp"]
 _data = {
 &"RESET": SubResource("Animation_2ullp"),
@@ -163,24 +160,24 @@ _data = {
 
 [node name="StaticBody2D" type="StaticBody2D" groups=["obstacle"]]
 z_index = 1
-script = ExtResource("1_2ullp")
+script = ExtResource("1_tx1tw")
 
-[node name="drag_component" parent="." node_paths=PackedStringArray("mouse_detection_area") instance=ExtResource("2_8tlvn")]
+[node name="drag_component" parent="." node_paths=PackedStringArray("mouse_detection_area") instance=ExtResource("2_tb1vv")]
 mouse_detection_area = NodePath("../mouse_detection")
 latching = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_0i0uk")
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-32, -96, -32, 32, 96, 32, 96, -32, 32, -32, 32, -96)
 
 [node name="mouse_detection" type="Area2D" parent="."]
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="mouse_detection"]
-shape = SubResource("RectangleShape2D_0i0uk")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="mouse_detection"]
+polygon = PackedVector2Array(-32, -96, -32, 32, 96, 32, 96, -32, 32, -32, 32, -96)
 
 [node name="sprites" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="sprites"]
-position = Vector2(-64, 0)
+position = Vector2(0, -64)
 texture = SubResource("AtlasTexture_8tlvn")
 
 [node name="Sprite2D2" type="Sprite2D" parent="sprites"]
@@ -192,13 +189,13 @@ texture = SubResource("AtlasTexture_8tlvn")
 
 [node name="locked_in_line" type="Line2D" parent="."]
 scale = Vector2(3, 3)
-points = PackedVector2Array(96, -32, 96, 32, -96, 32, -96, -32)
+points = PackedVector2Array(96, -32, 96, 32, -32, 32, -32, -96, 32, -96, 32, -32)
 closed = true
 width = 2.0
-default_color = Color(0, 0.23000002, 0.92, 0)
+default_color = Color(0, 0.23, 0.92, 0)
 
 [node name="idle_line" type="Line2D" parent="."]
-points = PackedVector2Array(96, -32, 96, 32, -96, 32, -96, -32)
+points = PackedVector2Array(96, -32, 96, 32, -32, 32, -32, -96, 32, -96, 32, -32)
 closed = true
 width = 2.0
 

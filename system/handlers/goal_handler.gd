@@ -40,6 +40,10 @@ func get_goals() -> Array[Vector2]:
 	
 	return goals
 
+func ready_check() -> void:
+	
+	pass
+
 func is_ready_for_round() -> bool:
 	return ready_for_round
 
@@ -53,6 +57,7 @@ func end_round_cleanup() -> void:
 	SignalBus.end_of_round.emit()
 
 func mob_pickup(goal_id: Goal) -> void:
-	goal_id.set_pickup_ready_status(false)
-	goal_id.reward_animation()
-	player.adjust_money(1)
+	if goal_id.is_ready_to_pickup():
+		goal_id.set_pickup_ready_status(false)
+		goal_id.reward_animation()
+		player.adjust_money(1)
