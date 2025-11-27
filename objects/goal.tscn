@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://by1y61ewiw0pm"]
+[gd_scene load_steps=6 format=3 uid="uid://by1y61ewiw0pm"]
 
 [ext_resource type="Script" uid="uid://c0dlrmgln07b3" path="res://objects/goal.gd" id="1_c3dbx"]
 [ext_resource type="AnimationLibrary" uid="uid://xck4naefv6hb" path="res://assets/animations/animation_library.res" id="3_44lh3"]
+[ext_resource type="AudioStream" uid="uid://dai6oiewltphy" path="res://assets/sounds/826602__floomatic__duuwip.wav" id="3_t8lag"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c3dbx"]
 size = Vector2(16, 16)
@@ -27,3 +28,4 @@ libraries = {
 }
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_t8lag")

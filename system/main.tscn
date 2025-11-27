@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://kdws56c0f1mv"]
+[gd_scene load_steps=15 format=3 uid="uid://kdws56c0f1mv"]
 
 [ext_resource type="Script" uid="uid://fnrudborlcqa" path="res://system/main.gd" id="1_7rmty"]
 [ext_resource type="PackedScene" uid="uid://c5rqi38s0x6p" path="res://objects/room.tscn" id="2_2soig"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://btta0jg43g3ns" path="res://system/escape.gd" id="9_i8srq"]
 [ext_resource type="Script" uid="uid://x1pbmgbiv0n3" path="res://system/player_interface.gd" id="10_i8srq"]
 [ext_resource type="Script" uid="uid://c8on0m4ybc8cj" path="res://system/discard_new_block.gd" id="12_3mgql"]
+[ext_resource type="AudioStream" uid="uid://ox1u3rjuaqxg" path="res://assets/sounds/bg_music.wav" id="13_qs5jh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5231d"]
 radius = 24.0
@@ -115,3 +116,7 @@ text = "Discard
 New Block"
 script = ExtResource("12_3mgql")
 player = NodePath("../../..")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_qs5jh")
+autoplay = true
