@@ -10,11 +10,18 @@ var block_placed_status: bool = false
 var locked: bool = false
 
 func initialize() -> void:
-	rotation_degrees = snappedi(randi_range(0, 360), rotation_variation_degrees)
+	set_initial_rotation()
 	connect_signals()
 	
 func connect_signals() -> void:
 	SignalBus.round_start.connect(play_locked_animation)
+
+func set_initial_rotation() -> void:
+	rotation_degrees = snappedi(randi_range(0, 360), rotation_variation_degrees)
+	
+	if randi_range(1, 4) == 2:
+		rotation_degrees *= 1 + randf()
+	pass
 
 func is_block_placed() -> bool:
 	return block_placed_status

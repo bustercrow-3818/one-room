@@ -52,7 +52,6 @@ func create_new_block(spawn_point: Vector2, type: String = "random") -> Block: #
 	call_deferred("add_child", new_block)
 	new_block.propagate_call("initialize")
 	new_block.position = spawn_point
-	new_block.rotation_degrees = snappedi(randi_range(0, 180), 45)
 		
 	return new_block
 
