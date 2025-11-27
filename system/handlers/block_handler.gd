@@ -13,7 +13,7 @@ func initialize() -> void:
 	connect_signals()
 	
 func connect_signals() -> void:
-	
+	SignalBus.discard_block.connect(discard_new_block)
 	pass
 
 func is_ready_for_round() -> bool:
@@ -32,9 +32,6 @@ func is_ready_for_round() -> bool:
 				pass
 	
 	return true
-
-func ready_check() -> void:
-	pass
 
 func create_new_block(spawn_point: Vector2, type: String = "random") -> Block: ## Type of block can be designated by name
 	var new_block: Block
@@ -66,3 +63,7 @@ func get_live_blocks() -> Array[Block]:
 			blocks_live.append(i)
 	
 	return blocks_live
+
+func discard_new_block() -> void:
+	
+	pass

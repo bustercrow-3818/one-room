@@ -8,7 +8,7 @@ func _ready() -> void:
 	propagate_call("initialize", [], true)
 
 func connect_signals() -> void:
-	%Button.pressed.connect(ready_check)
+	%start_round.pressed.connect(ready_check)
 	SignalBus.end_of_round.connect(end_of_round)
 	
 func set_goals() -> void:

@@ -15,6 +15,7 @@ func initialize() -> void:
 	
 func connect_signals() -> void:
 	SignalBus.round_start.connect(play_locked_animation)
+	SignalBus.discard_block.connect(discard)
 
 func set_initial_rotation() -> void:
 	rotation_degrees = snappedi(randi_range(0, 360), rotation_variation_degrees)
@@ -36,9 +37,18 @@ func play_locked_animation() -> void:
 	
 func play_invalid_animation() -> void:
 	animation.play("invalid")
+
+func play_discard_animation() -> void:
+	animation.play("discard")
 	
 func get_overlapping_areas() -> Array[Area2D]:
 	return detection_area.get_overlapping_areas()
 
 func is_block_locked() -> bool:
 	return locked
+
+func discard() -> void:
+	if not locked:
+		animation.play("discard")
+		await animation.animation_finished
+		queue_free()

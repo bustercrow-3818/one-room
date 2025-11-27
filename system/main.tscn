@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://kdws56c0f1mv"]
+[gd_scene load_steps=14 format=3 uid="uid://kdws56c0f1mv"]
 
 [ext_resource type="Script" uid="uid://fnrudborlcqa" path="res://system/main.gd" id="1_7rmty"]
 [ext_resource type="PackedScene" uid="uid://c5rqi38s0x6p" path="res://objects/room.tscn" id="2_2soig"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://c5nnh7twpycrw" path="res://system/player_interface.tscn" id="9_5231d"]
 [ext_resource type="Script" uid="uid://btta0jg43g3ns" path="res://system/escape.gd" id="9_i8srq"]
 [ext_resource type="Script" uid="uid://x1pbmgbiv0n3" path="res://system/player_interface.gd" id="10_i8srq"]
+[ext_resource type="Script" uid="uid://c8on0m4ybc8cj" path="res://system/discard_new_block.gd" id="12_3mgql"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5231d"]
 radius = 24.0
@@ -20,19 +21,10 @@ script = ExtResource("1_7rmty")
 
 [node name="NavigationRegion2D" parent="." instance=ExtResource("2_2soig")]
 
-[node name="Button" type="Button" parent="."]
-unique_name_in_owner = true
-offset_left = 1056.0
-offset_right = 1184.0
-offset_bottom = 54.0
-scale = Vector2(1.5, 1.5)
-text = "Start
-Round"
-
 [node name="MobHandler" type="Node2D" parent="." node_paths=PackedStringArray("round_start_button", "escape_point") groups=["handler"]]
 unique_name_in_owner = true
 script = ExtResource("3_5231d")
-round_start_button = NodePath("../Button")
+round_start_button = NodePath("../player_interface/HBoxContainer/VBoxContainer2/start_round")
 escape_point = NodePath("../escape")
 metadata/_custom_type_script = "uid://bvjero3ul8fie"
 
@@ -72,8 +64,54 @@ script = ExtResource("9_i8srq")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="escape/Area2D"]
 shape = SubResource("CircleShape2D_5231d")
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-
-[node name="player_interface" parent="." instance=ExtResource("9_5231d")]
+[node name="player_interface" parent="." node_paths=PackedStringArray("score_display") instance=ExtResource("9_5231d")]
 position = Vector2(512, 510)
 script = ExtResource("10_i8srq")
+score_display = NodePath("HBoxContainer/PanelContainer/VBoxContainer/score_qty")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="player_interface"]
+custom_minimum_size = Vector2(192, 0)
+offset_left = -832.0
+offset_top = -448.0
+offset_right = -640.0
+offset_bottom = -336.0
+scale = Vector2(1.5, 1.5)
+
+[node name="PanelContainer" type="PanelContainer" parent="player_interface/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="player_interface/HBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="score" type="Label" parent="player_interface/HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+text = "Score:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="score_qty" type="Label" parent="player_interface/HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+text = "0"
+horizontal_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="player_interface/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="start_round" type="Button" parent="player_interface/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Start
+Round"
+
+[node name="discard_new_block" type="Button" parent="player_interface/HBoxContainer/VBoxContainer2" node_paths=PackedStringArray("player")]
+layout_mode = 2
+tooltip_text = "Cost: 20"
+text = "Discard
+New Block"
+script = ExtResource("12_3mgql")
+player = NodePath("../../..")

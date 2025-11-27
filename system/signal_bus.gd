@@ -10,3 +10,5 @@ signal not_ready(message: String)
 signal ready_restore(message: String)
 
 signal escape_reached
+
+signal discard_block

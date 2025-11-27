@@ -1,14 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://cbk6tnuy58hld"]
+[gd_scene load_steps=6 format=3 uid="uid://cbk6tnuy58hld"]
 
 [ext_resource type="Script" uid="uid://cgfcnnp1osn2p" path="res://system/handlers/block_handler.gd" id="1_6wgbx"]
 [ext_resource type="PackedScene" uid="uid://bu3noje23840c" path="res://objects/blocks/line_wall.tscn" id="2_dqaie"]
 [ext_resource type="PackedScene" uid="uid://cpy5gf4qow5gm" path="res://objects/blocks/l_wall_r.tscn" id="3_dqaie"]
 [ext_resource type="PackedScene" uid="uid://calar1255j7xt" path="res://objects/blocks/w_wall.tscn" id="4_uf1mg"]
+[ext_resource type="PackedScene" uid="uid://co3p2tfu3wra0" path="res://objects/blocks/t_wall_long.tscn" id="5_g167m"]
 
 [node name="BlockHandler" type="Node2D" groups=["handler"]]
 script = ExtResource("1_6wgbx")
 block_scenes = Dictionary[String, PackedScene]({
 "l_wall_r": ExtResource("3_dqaie"),
 "straight": ExtResource("2_dqaie"),
+"t_wall_long": ExtResource("5_g167m"),
 "w_wall": ExtResource("4_uf1mg")
 })
