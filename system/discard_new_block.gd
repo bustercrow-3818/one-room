@@ -11,7 +11,9 @@ func connect_signals() -> void:
 	pressed.connect(discard)
 
 func discard() -> void:
-	if player.get_current_money() >= cost:
-		player.adjust_money(-cost)
+	if cost >= player.get_current_money():
+		SignalBus.game_over.emit()
+	else:
 		SignalBus.discard_block.emit()
+	player.adjust_money(-cost)
 		

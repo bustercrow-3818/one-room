@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://c5nnh7twpycrw" path="res://system/player_interface.tscn" id="9_5231d"]
 [ext_resource type="Script" uid="uid://btta0jg43g3ns" path="res://system/escape.gd" id="9_i8srq"]
 [ext_resource type="Script" uid="uid://x1pbmgbiv0n3" path="res://system/player_interface.gd" id="10_i8srq"]
-[ext_resource type="FontFile" uid="uid://cd3x44wmam4pi" path="res://assets/Eirian_Font_1_05/OpenType (.otf)/Eirian-Regular.otf" id="11_io3fq"]
+[ext_resource type="Theme" uid="uid://oxy3yscs5r7r" path="res://assets/themes/label.tres" id="11_io3fq"]
 [ext_resource type="Theme" uid="uid://crgofrwwljspq" path="res://assets/themes/button.tres" id="11_qs5jh"]
 [ext_resource type="Script" uid="uid://c8on0m4ybc8cj" path="res://system/discard_new_block.gd" id="12_3mgql"]
 [ext_resource type="AudioStream" uid="uid://djwl35athpa0i" path="res://assets/sounds/bg_music_2.wav" id="12_qs5jh"]
@@ -18,24 +18,16 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_5231d"]
 radius = 24.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jqgdb"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_io3fq"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.24858868, 0.82421875, 0.18351746, 1)
 
-[sub_resource type="Theme" id="Theme_3ukea"]
-Label/colors/font_color = Color(0.24858868, 0.82421875, 0.18351746, 1)
-Label/font_sizes/font_size = 20
-Label/fonts/font = ExtResource("11_io3fq")
-Label/styles/normal = SubResource("StyleBoxFlat_jqgdb")
+[sub_resource type="Theme" id="Theme_jqgdb"]
+Panel/styles/panel = SubResource("StyleBoxFlat_io3fq")
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_7rmty")
 
-[node name="NavigationRegion2D" parent="." instance=ExtResource("2_2soig")]
+[node name="room" parent="." instance=ExtResource("2_2soig")]
 
 [node name="MobHandler" type="Node2D" parent="." node_paths=PackedStringArray("round_start_button", "escape_point") groups=["handler"]]
 unique_name_in_owner = true
@@ -49,6 +41,9 @@ position = Vector2(512, 512)
 
 [node name="BlockHandler" parent="." instance=ExtResource("5_5231d")]
 unique_name_in_owner = true
+new_round_block_qty = 2
+default_spawn_position = Vector2(1206, 256)
+multiple_spawn_offset = Vector2(0, 512)
 
 [node name="GoalHandler" type="Node2D" parent="." node_paths=PackedStringArray("player") groups=["handler"]]
 unique_name_in_owner = true
@@ -80,45 +75,43 @@ shape = SubResource("CircleShape2D_5231d")
 [node name="player_interface" parent="." node_paths=PackedStringArray("score_display") instance=ExtResource("9_5231d")]
 position = Vector2(512, 510)
 script = ExtResource("10_i8srq")
-score_display = NodePath("HBoxContainer/PanelContainer/display_column/score_qty")
+score_display = NodePath("HBoxContainer/display_column/score_qty")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="player_interface"]
 custom_minimum_size = Vector2(192, 0)
-offset_left = -832.0
-offset_top = -448.0
-offset_right = -640.0
-offset_bottom = -336.0
+offset_left = -874.0
+offset_top = -448.00003
+offset_right = -662.0
+offset_bottom = -270.6667
 scale = Vector2(1.5, 1.5)
 
-[node name="PanelContainer" type="PanelContainer" parent="player_interface/HBoxContainer"]
+[node name="display_column" type="VBoxContainer" parent="player_interface/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="display_column" type="VBoxContainer" parent="player_interface/HBoxContainer/PanelContainer"]
+[node name="score" type="Label" parent="player_interface/HBoxContainer/display_column"]
 layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="score" type="Label" parent="player_interface/HBoxContainer/PanelContainer/display_column"]
-layout_mode = 2
-theme = SubResource("Theme_3ukea")
+theme = ExtResource("11_io3fq")
 text = "Score:"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="score_qty" type="Label" parent="player_interface/HBoxContainer/PanelContainer/display_column"]
+[node name="score_qty" type="Label" parent="player_interface/HBoxContainer/display_column"]
 layout_mode = 2
+theme = ExtResource("11_io3fq")
 text = "0"
 horizontal_alignment = 1
 
-[node name="Panel" type="Panel" parent="player_interface/HBoxContainer/PanelContainer/display_column"]
+[node name="Panel" type="Panel" parent="player_interface/HBoxContainer/display_column"]
 layout_mode = 2
 size_flags_vertical = 3
+theme = SubResource("Theme_jqgdb")
 
 [node name="button_column" type="VBoxContainer" parent="player_interface/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="start_round" type="Button" parent="player_interface/HBoxContainer/button_column"]
+[node name="start_round" type="Button" parent="player_interface/HBoxContainer/button_column" groups=["buttons"]]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
@@ -126,15 +119,17 @@ theme = ExtResource("11_qs5jh")
 text = "Start
 Round"
 
-[node name="discard_new_block" type="Button" parent="player_interface/HBoxContainer/button_column" node_paths=PackedStringArray("player")]
+[node name="discard_new_block" type="Button" parent="player_interface/HBoxContainer/button_column" node_paths=PackedStringArray("player") groups=["buttons"]]
 layout_mode = 2
-tooltip_text = "Cost: 10"
+tooltip_text = "Cost: 6 Score
+Randomly discards one block
+waiting to be placed"
 focus_mode = 0
 theme = ExtResource("11_qs5jh")
 text = "Discard
 New Block"
 script = ExtResource("12_3mgql")
-cost = 10
+cost = 6
 player = NodePath("../../..")
 
 [node name="bgm" type="AudioStreamPlayer2D" parent="."]

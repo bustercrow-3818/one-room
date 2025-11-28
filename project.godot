@@ -37,6 +37,7 @@ obstacle=""
 handler=""
 in_bounds_area=""
 out_of_bounds_area=""
+buttons=""
 
 [gui]
 

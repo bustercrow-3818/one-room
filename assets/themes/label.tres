@@ -1,0 +1,13 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://oxy3yscs5r7r"]
+
+[ext_resource type="FontFile" uid="uid://cd3x44wmam4pi" path="res://assets/Eirian_Font_1_05/OpenType (.otf)/Eirian-Regular.otf" id="1_m7p4p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jqgdb"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_color = Color(0.24858868, 0.82421875, 0.18351746, 1)
+
+[resource]
+Label/colors/font_color = Color(0.24858868, 0.82421875, 0.18351746, 1)
+Label/font_sizes/font_size = 20
+Label/fonts/font = ExtResource("1_m7p4p")
+Label/styles/normal = SubResource("StyleBoxFlat_jqgdb")

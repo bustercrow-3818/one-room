@@ -5,7 +5,7 @@ class_name Block
 @onready var detection_area: Area2D = $mouse_detection
 
 @export_category("Stats")
-@export_range(0, 1) var glitch_chance: float = 0.08
+@export_range(0, 1) var glitch_chance: float = 0.12
 
 @export_category("Node References")
 @export var lock_line: Line2D
@@ -25,7 +25,6 @@ func initialize() -> void:
 	
 func connect_signals() -> void:
 	SignalBus.round_start.connect(play_locked_animation)
-	SignalBus.discard_block.connect(discard)
 
 func set_initial_rotation() -> void:
 	rotation_degrees = snappedi(randi_range(0, 360), rotation_variation_degrees)
@@ -40,14 +39,13 @@ func play_locked_animation() -> void:
 	if not locked:
 		locked = true
 		animation.play("locked_in")
-	
+
 func play_invalid_animation() -> void:
 	animation.play("invalid")
 
 func play_discard_animation() -> void:
 	animation.play("discard")
-	
-	
+
 func get_overlapping_areas() -> Array[Area2D]:
 	return detection_area.get_overlapping_areas()
 
@@ -55,11 +53,10 @@ func is_block_locked() -> bool:
 	return locked
 
 func discard() -> void:
-	if not locked:
-		animation.play("discard")
-		%discard_sound.play()
-		await animation.animation_finished
-		queue_free()
+	animation.play("discard")
+	%discard_sound.play()
+	await animation.animation_finished
+	queue_free()
 
 func glitch_check() -> void:
 	var shape_check: float = randf_range(0, 1)
@@ -71,7 +68,7 @@ func glitch_check() -> void:
 	if spin_check <= glitch_chance:
 		glitch_rotation()
 	pass
-	
+
 func glitch_shape() -> void:
 	var point_list: Array[Vector2]
 	var point_chosen: Vector2
