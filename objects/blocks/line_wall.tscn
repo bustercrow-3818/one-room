@@ -3,9 +3,7 @@
 [ext_resource type="Script" uid="uid://ct1vrjqn6e7pq" path="res://objects/wall.gd" id="1_whhb0"]
 [ext_resource type="PackedScene" uid="uid://cieqrfyyix101" path="res://system/components/drag_component.tscn" id="2_cbadb"]
 [ext_resource type="AnimationLibrary" uid="uid://bd74wvtl6ft5g" path="res://assets/animations/block_animations.res" id="3_0gvm3"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0i0uk"]
-size = Vector2(314.5, 64)
+[ext_resource type="AudioStream" uid="uid://ycnwe7bxsc4o" path="res://assets/sounds/discard.wav" id="4_2el2o"]
 
 [sub_resource type="Animation" id="Animation_2ullp"]
 length = 0.001
@@ -68,6 +66,34 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_vsmut"]
+resource_name = "discard"
+length = 0.35
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("idle_line:default_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0625, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("idle_line:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0625, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 1.5), Vector2(3, 3)]
 }
 
 [sub_resource type="Animation" id="Animation_s0ur5"]
@@ -150,34 +176,6 @@ tracks/2/keys = {
 "values": [Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_vsmut"]
-resource_name = "discard"
-length = 0.35
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("idle_line:default_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0625, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("idle_line:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0625, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.5, 1.5), Vector2(3, 3)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2ullp"]
 _data = {
 &"RESET": SubResource("Animation_2ullp"),
@@ -186,29 +184,30 @@ _data = {
 &"locked_in": SubResource("Animation_8tlvn")
 }
 
-[node name="line_wall" type="StaticBody2D" groups=["obstacle"]]
+[node name="line_wall" type="StaticBody2D" node_paths=PackedStringArray("lock_line", "idle_line", "collision_polygon", "detection_polygon") groups=["obstacle"]]
 z_index = 1
 script = ExtResource("1_whhb0")
+lock_line = NodePath("locked_in_line")
+idle_line = NodePath("idle_line")
+collision_polygon = NodePath("CollisionPolygon2D")
+detection_polygon = NodePath("mouse_detection/CollisionPolygon2D")
 rotation_variation_degrees = 90
 
 [node name="drag_component" parent="." node_paths=PackedStringArray("mouse_detection_area") instance=ExtResource("2_cbadb")]
 mouse_detection_area = NodePath("../mouse_detection")
 latching = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.25, 0)
-shape = SubResource("RectangleShape2D_0i0uk")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-158, -32, -158, 32, 158, 32, 158, -32)
 
 [node name="mouse_detection" type="Area2D" parent="." groups=["obstacle"]]
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="mouse_detection"]
-position = Vector2(-0.5, 0)
-shape = SubResource("RectangleShape2D_0i0uk")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="mouse_detection"]
+polygon = PackedVector2Array(-158, -32, -158, 32, 158, 32, 158, -32)
 
 [node name="sprites" type="Node2D" parent="."]
 
 [node name="locked_in_line" type="Line2D" parent="."]
-scale = Vector2(3, 3)
 points = PackedVector2Array(158, -32, 158, 32, -158, 32, -158, -32)
 closed = true
 width = 2.0
@@ -224,3 +223,8 @@ libraries = {
 &"": SubResource("AnimationLibrary_2ullp"),
 &"block_animations": ExtResource("3_0gvm3")
 }
+
+[node name="discard_sound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("4_2el2o")
+volume_db = -4.0

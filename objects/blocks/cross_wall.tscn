@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://d3bwkgyqujno6"]
+[gd_scene load_steps=9 format=3 uid="uid://d3bwkgyqujno6"]
 
 [ext_resource type="Script" uid="uid://ct1vrjqn6e7pq" path="res://objects/wall.gd" id="1_4xftd"]
 [ext_resource type="PackedScene" uid="uid://cieqrfyyix101" path="res://system/components/drag_component.tscn" id="2_qc6ly"]
+[ext_resource type="AudioStream" uid="uid://ycnwe7bxsc4o" path="res://assets/sounds/discard.wav" id="3_4xftd"]
 
 [sub_resource type="Animation" id="Animation_2ullp"]
 length = 0.001
@@ -64,6 +65,34 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2ba1s"]
+resource_name = "discard"
+length = 0.35
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("idle_line:default_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0625, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("idle_line:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0625, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 1.5), Vector2(3, 3)]
 }
 
 [sub_resource type="Animation" id="Animation_s0ur5"]
@@ -146,34 +175,6 @@ tracks/2/keys = {
 "values": [Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_2ba1s"]
-resource_name = "discard"
-length = 0.35
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("idle_line:default_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0625, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("idle_line:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0625, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.5, 1.5), Vector2(3, 3)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2ullp"]
 _data = {
 &"RESET": SubResource("Animation_2ullp"),
@@ -182,9 +183,13 @@ _data = {
 &"locked_in": SubResource("Animation_8tlvn")
 }
 
-[node name="line_wall" type="StaticBody2D" groups=["obstacle"]]
+[node name="line_wall" type="StaticBody2D" node_paths=PackedStringArray("lock_line", "idle_line", "collision_polygon", "detection_polygon") groups=["obstacle"]]
 z_index = 1
 script = ExtResource("1_4xftd")
+lock_line = NodePath("locked_in_line")
+idle_line = NodePath("idle_line")
+collision_polygon = NodePath("CollisionPolygon2D")
+detection_polygon = NodePath("mouse_detection/CollisionPolygon2D")
 rotation_variation_degrees = 90
 
 [node name="drag_component" parent="." node_paths=PackedStringArray("mouse_detection_area") instance=ExtResource("2_qc6ly")]
@@ -217,3 +222,7 @@ width = 2.0
 libraries = {
 &"": SubResource("AnimationLibrary_2ullp")
 }
+
+[node name="discard_sound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_4xftd")

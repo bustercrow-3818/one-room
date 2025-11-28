@@ -1,0 +1,41 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://crgofrwwljspq"]
+
+[ext_resource type="FontFile" uid="uid://cd3x44wmam4pi" path="res://assets/Eirian_Font_1_05/OpenType (.otf)/Eirian-Regular.otf" id="1_8722f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7thw1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_idhui"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rp3em"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.24858868, 0.82421875, 0.18351746, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m5ied"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.24858868, 0.82421875, 0.18351746, 1)
+
+[resource]
+Button/colors/font_color = Color(0.24858868, 0.82421875, 0.18351746, 1)
+Button/colors/font_focus_color = Color(0.24858868, 0.82421875, 0.18351746, 1)
+Button/colors/font_hover_color = Color(1, 1, 0, 1)
+Button/colors/font_pressed_color = Color(1, 1, 0, 1)
+Button/font_sizes/font_size = 20
+Button/fonts/font = ExtResource("1_8722f")
+Button/styles/focus = SubResource("StyleBoxEmpty_7thw1")
+Button/styles/hover = SubResource("StyleBoxFlat_idhui")
+Button/styles/normal = SubResource("StyleBoxFlat_rp3em")
+Button/styles/pressed = SubResource("StyleBoxFlat_m5ied")

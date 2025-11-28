@@ -1,6 +1,6 @@
 extends Button
 
-@export var cost: int = 20
+@export var cost: int
 @export var player: Player
 
 
@@ -11,7 +11,7 @@ func connect_signals() -> void:
 	pressed.connect(discard)
 
 func discard() -> void:
-	if player.get_current_money() >= 20:
-		player.adjust_money(-20)
+	if player.get_current_money() >= cost:
+		player.adjust_money(-cost)
 		SignalBus.discard_block.emit()
 		

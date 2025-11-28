@@ -1,21 +1,36 @@
-[gd_scene load_steps=15 format=3 uid="uid://kdws56c0f1mv"]
+[gd_scene load_steps=18 format=3 uid="uid://kdws56c0f1mv"]
 
 [ext_resource type="Script" uid="uid://fnrudborlcqa" path="res://system/main.gd" id="1_7rmty"]
 [ext_resource type="PackedScene" uid="uid://c5rqi38s0x6p" path="res://objects/room.tscn" id="2_2soig"]
 [ext_resource type="Script" uid="uid://bvjero3ul8fie" path="res://system/handlers/mob_handler.gd" id="3_5231d"]
 [ext_resource type="PackedScene" uid="uid://wuyu1r1e0d2i" path="res://entities/red_mob.tscn" id="4_i8srq"]
 [ext_resource type="PackedScene" uid="uid://cbk6tnuy58hld" path="res://system/handlers/block_handler.tscn" id="5_5231d"]
-[ext_resource type="PackedScene" uid="uid://bu3noje23840c" path="res://objects/blocks/line_wall.tscn" id="6_qs5jh"]
 [ext_resource type="Script" uid="uid://b2pue7uyn5m01" path="res://system/handlers/goal_handler.gd" id="7_io3fq"]
 [ext_resource type="PackedScene" uid="uid://by1y61ewiw0pm" path="res://objects/goal.tscn" id="8_jqgdb"]
 [ext_resource type="PackedScene" uid="uid://c5nnh7twpycrw" path="res://system/player_interface.tscn" id="9_5231d"]
 [ext_resource type="Script" uid="uid://btta0jg43g3ns" path="res://system/escape.gd" id="9_i8srq"]
 [ext_resource type="Script" uid="uid://x1pbmgbiv0n3" path="res://system/player_interface.gd" id="10_i8srq"]
+[ext_resource type="FontFile" uid="uid://cd3x44wmam4pi" path="res://assets/Eirian_Font_1_05/OpenType (.otf)/Eirian-Regular.otf" id="11_io3fq"]
+[ext_resource type="Theme" uid="uid://crgofrwwljspq" path="res://assets/themes/button.tres" id="11_qs5jh"]
 [ext_resource type="Script" uid="uid://c8on0m4ybc8cj" path="res://system/discard_new_block.gd" id="12_3mgql"]
-[ext_resource type="AudioStream" uid="uid://ox1u3rjuaqxg" path="res://assets/sounds/bg_music.wav" id="13_qs5jh"]
+[ext_resource type="AudioStream" uid="uid://djwl35athpa0i" path="res://assets/sounds/bg_music_2.wav" id="12_qs5jh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5231d"]
 radius = 24.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jqgdb"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.24858868, 0.82421875, 0.18351746, 1)
+
+[sub_resource type="Theme" id="Theme_3ukea"]
+Label/colors/font_color = Color(0.24858868, 0.82421875, 0.18351746, 1)
+Label/font_sizes/font_size = 20
+Label/fonts/font = ExtResource("11_io3fq")
+Label/styles/normal = SubResource("StyleBoxFlat_jqgdb")
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_7rmty")
@@ -25,7 +40,7 @@ script = ExtResource("1_7rmty")
 [node name="MobHandler" type="Node2D" parent="." node_paths=PackedStringArray("round_start_button", "escape_point") groups=["handler"]]
 unique_name_in_owner = true
 script = ExtResource("3_5231d")
-round_start_button = NodePath("../player_interface/HBoxContainer/VBoxContainer2/start_round")
+round_start_button = NodePath("../player_interface/HBoxContainer/button_column/start_round")
 escape_point = NodePath("../escape")
 metadata/_custom_type_script = "uid://bvjero3ul8fie"
 
@@ -34,9 +49,6 @@ position = Vector2(512, 512)
 
 [node name="BlockHandler" parent="." instance=ExtResource("5_5231d")]
 unique_name_in_owner = true
-
-[node name="StaticBody2D2" parent="BlockHandler" instance=ExtResource("6_qs5jh")]
-position = Vector2(1206, 576)
 
 [node name="GoalHandler" type="Node2D" parent="." node_paths=PackedStringArray("player") groups=["handler"]]
 unique_name_in_owner = true
@@ -68,7 +80,7 @@ shape = SubResource("CircleShape2D_5231d")
 [node name="player_interface" parent="." node_paths=PackedStringArray("score_display") instance=ExtResource("9_5231d")]
 position = Vector2(512, 510)
 script = ExtResource("10_i8srq")
-score_display = NodePath("HBoxContainer/PanelContainer/VBoxContainer/score_qty")
+score_display = NodePath("HBoxContainer/PanelContainer/display_column/score_qty")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="player_interface"]
 custom_minimum_size = Vector2(192, 0)
@@ -82,41 +94,49 @@ scale = Vector2(1.5, 1.5)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="player_interface/HBoxContainer/PanelContainer"]
+[node name="display_column" type="VBoxContainer" parent="player_interface/HBoxContainer/PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="score" type="Label" parent="player_interface/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="score" type="Label" parent="player_interface/HBoxContainer/PanelContainer/display_column"]
 layout_mode = 2
-size_flags_vertical = 10
+theme = SubResource("Theme_3ukea")
 text = "Score:"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="score_qty" type="Label" parent="player_interface/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="score_qty" type="Label" parent="player_interface/HBoxContainer/PanelContainer/display_column"]
 layout_mode = 2
-size_flags_vertical = 2
 text = "0"
 horizontal_alignment = 1
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="player_interface/HBoxContainer"]
+[node name="Panel" type="Panel" parent="player_interface/HBoxContainer/PanelContainer/display_column"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="button_column" type="VBoxContainer" parent="player_interface/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="start_round" type="Button" parent="player_interface/HBoxContainer/VBoxContainer2"]
+[node name="start_round" type="Button" parent="player_interface/HBoxContainer/button_column"]
 unique_name_in_owner = true
 layout_mode = 2
+focus_mode = 0
+theme = ExtResource("11_qs5jh")
 text = "Start
 Round"
 
-[node name="discard_new_block" type="Button" parent="player_interface/HBoxContainer/VBoxContainer2" node_paths=PackedStringArray("player")]
+[node name="discard_new_block" type="Button" parent="player_interface/HBoxContainer/button_column" node_paths=PackedStringArray("player")]
 layout_mode = 2
-tooltip_text = "Cost: 20"
+tooltip_text = "Cost: 10"
+focus_mode = 0
+theme = ExtResource("11_qs5jh")
 text = "Discard
 New Block"
 script = ExtResource("12_3mgql")
+cost = 10
 player = NodePath("../../..")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("13_qs5jh")
+[node name="bgm" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_qs5jh")
 autoplay = true
