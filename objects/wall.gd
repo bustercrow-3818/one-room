@@ -55,8 +55,6 @@ func is_block_locked() -> bool:
 func discard() -> void:
 	animation.play("discard")
 	%discard_sound.play()
-	await animation.animation_finished
-	queue_free()
 
 func glitch_check() -> void:
 	var shape_check: float = randf_range(0, 1)

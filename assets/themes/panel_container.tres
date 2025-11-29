@@ -1,0 +1,12 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://c6l3dj2ys3a12"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dinpy"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.24858868, 0.82421875, 0.18351746, 1)
+
+[resource]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_dinpy")

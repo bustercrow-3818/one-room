@@ -1,5 +1,9 @@
 extends Node2D
 
+@onready var help_message: Control = $help
+@onready var game_over_screen: Control = $game_over
+@onready var round_counter: Label = $player_interface/round_counter
+
 var room_ready: bool = true
 var error_messages: Array[String]
 
@@ -9,6 +13,9 @@ func _ready() -> void:
 
 func connect_signals() -> void:
 	%start_round.pressed.connect(ready_check)
+	%show_help.pressed.connect(help_message.show)
+	SignalBus.end_of_round.connect(end_of_round)
+	SignalBus.discarding_complete.connect(game_over)
 	
 func set_goals() -> void:
 	%MobHandler.set_goals(%GoalHandler.get_goals())
@@ -26,3 +33,14 @@ func round_start() -> void:
 	SignalBus.round_start.emit()
 	set_goals()
 	%MobHandler.start_round()
+
+func end_of_round() -> void:
+	GameStats.rounds_completed += 1
+	round_counter.update_display()
+	pass
+
+func game_over() -> void:
+	round_counter.update_display()
+	game_over_screen.update_rounds_complete()
+	game_over_screen.show()
+	pass

@@ -7,3 +7,4 @@ func initialize() -> void:
 
 func connect_signals() -> void:
 	SignalBus.block_snapped.connect(bake_navigation_polygon)
+	SignalBus.game_over.connect(bake_navigation_polygon)

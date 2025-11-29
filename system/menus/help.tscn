@@ -1,0 +1,71 @@
+[gd_scene load_steps=6 format=3 uid="uid://catnrrf6q2a0n"]
+
+[ext_resource type="Theme" uid="uid://oxy3yscs5r7r" path="res://assets/themes/label.tres" id="1_2puhv"]
+[ext_resource type="Script" uid="uid://ddklucsmrd8y3" path="res://system/menus/help.gd" id="1_dinpy"]
+[ext_resource type="Theme" uid="uid://c6l3dj2ys3a12" path="res://assets/themes/panel_container.tres" id="2_2bgm8"]
+[ext_resource type="Theme" uid="uid://crgofrwwljspq" path="res://assets/themes/button.tres" id="2_pcxsa"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pcxsa"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="help" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dinpy")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -369.0
+offset_top = -284.5
+offset_right = 369.0
+offset_bottom = 284.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_2bgm8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+z_index = 2
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_2puhv")
+theme_override_styles/normal = SubResource("StyleBoxFlat_pcxsa")
+text = "Welcome to Claustromania!
+
+How to play:
+
+When you click the \"Start Round\" button, the red dot will attempt to reach
+each of the yellow squares before returning to the center.
+
+Each goal reached will award 1 \"bit\", each one unable to be reached will
+deduct 1 bit.
+
+After each round and before the first round, you will be presented a small
+number of blocks which must be placed inside the room or discarded before 
+the round may begin. These blocks can occasionally be \"glitched\", causing
+them to be misshapen or rotated unusual amounts. Once the round begins,
+new blocks will lock into place and can never be moved again.
+
+If your bits are ever reduced to 0 or less, the game ends.
+
+How many rounds can you survive?
+
+"
+horizontal_alignment = 1
+
+[node name="dismiss_help" type="Button" parent="PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_pcxsa")
+text = "I'm ready!"

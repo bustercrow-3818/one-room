@@ -9,6 +9,7 @@ class_name BlockHandler
 @export_category("Node References")
 @export var block_scenes: Dictionary[String, PackedScene]
 
+var discard_queue: Array[Block]
 var next_spawn_pos: Vector2
 var ready_for_round: bool = true
 var unplaced_blocks: Array[StaticBody2D]
@@ -76,6 +77,15 @@ func get_live_blocks() -> Array[Block]:
 	
 	return blocks_live
 
+func get_locked_blocks() -> Array[Block]:
+	var blocks_locked: Array[Block]
+	for i in get_children():
+		if i is Block:
+			if i.is_block_locked():
+				blocks_locked.append(i)
+	
+	return blocks_locked
+
 func get_blocks() -> Array[Block]:
 	var blocks: Array[Block]
 	
@@ -91,14 +101,25 @@ func end_of_round() -> void:
 		create_new_block()
 
 func discard_new_block() -> void:
-	get_live_blocks().pick_random().discard()
-	pass
+	if get_live_blocks().is_empty():
+		return
+	else:
+		discard_queue.append(get_live_blocks().pick_random())
+		discard_blocks_in_queue()
 
+func discard_blocks_in_queue() -> void:
+	if discard_queue.is_empty():
+		return
+	else:
+		for i in discard_queue:
+			i.discard()
+			await i.animation.animation_finished
+			i.queue_free()
+		discard_queue.resize(0)
+		
 func game_over() -> void:
-	for i in get_blocks():
-		if i.animation.is_playing():
-			await i.animation.animation_finished
-			i.discard()
-		else:
-			i.discard()
-			await i.animation.animation_finished
+	discard_queue = get_blocks()
+		
+	await discard_blocks_in_queue()
+	
+	SignalBus.discarding_complete.emit()

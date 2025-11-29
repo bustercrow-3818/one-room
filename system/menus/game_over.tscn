@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://leklb0uqr3sa"]
+
+[ext_resource type="Theme" uid="uid://c6l3dj2ys3a12" path="res://assets/themes/panel_container.tres" id="1_7606a"]
+[ext_resource type="Script" uid="uid://o8syjqgjfn63" path="res://system/menus/game_over.gd" id="1_htfos"]
+[ext_resource type="Theme" uid="uid://oxy3yscs5r7r" path="res://assets/themes/label.tres" id="1_wpajq"]
+[ext_resource type="Theme" uid="uid://crgofrwwljspq" path="res://assets/themes/button.tres" id="2_7606a"]
+
+[node name="game_over" type="Control"]
+z_index = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_htfos")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 1024.0
+offset_bottom = 640.0
+theme = ExtResource("1_7606a")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+theme = ExtResource("1_wpajq")
+theme_override_font_sizes/font_size = 48
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="rounds_complete_report" type="Label" parent="PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("1_wpajq")
+text = "Rounds Complete: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="try_again_button" type="Button" parent="PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 2
+theme = ExtResource("2_7606a")
+text = "Try Again"
