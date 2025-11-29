@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://kdws56c0f1mv"]
+[gd_scene load_steps=23 format=3 uid="uid://kdws56c0f1mv"]
 
 [ext_resource type="Script" uid="uid://fnrudborlcqa" path="res://system/main.gd" id="1_7rmty"]
 [ext_resource type="PackedScene" uid="uid://c5rqi38s0x6p" path="res://objects/room.tscn" id="2_2soig"]
@@ -17,6 +17,8 @@
 [ext_resource type="Script" uid="uid://bfidph36vrlv1" path="res://system/round_counter.gd" id="14_3ukea"]
 [ext_resource type="PackedScene" uid="uid://catnrrf6q2a0n" path="res://system/menus/help.tscn" id="14_jqgdb"]
 [ext_resource type="PackedScene" uid="uid://leklb0uqr3sa" path="res://system/menus/game_over.tscn" id="17_03ig6"]
+[ext_resource type="PackedScene" uid="uid://g5o0aaiu2fdp" path="res://system/components/button_sound.tscn" id="18_4s2s4"]
+[ext_resource type="AudioStream" uid="uid://cdi3qifla4qcv" path="res://assets/sounds/round_over.wav" id="19_jalkb"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5231d"]
 radius = 24.0
@@ -137,20 +139,17 @@ script = ExtResource("12_3mgql")
 cost = 6
 
 [node name="round_counter" type="Label" parent="player_interface"]
-offset_left = -46.0
-offset_top = -567.0
-offset_right = 24.0
+offset_left = -81.0
+offset_top = -580.0
+offset_right = 31.0
 offset_bottom = -543.0
 scale = Vector2(1.5, 1.5)
 theme = ExtResource("11_io3fq")
+theme_override_font_sizes/font_size = 32
 text = "Round 1"
 horizontal_alignment = 1
 script = ExtResource("14_3ukea")
 metadata/_edit_use_anchors_ = true
-
-[node name="bgm" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("12_qs5jh")
-autoplay = true
 
 [node name="help" parent="." instance=ExtResource("14_jqgdb")]
 anchors_preset = 0
@@ -186,3 +185,16 @@ offset_bottom = -130.0
 grow_horizontal = 1
 grow_vertical = 1
 scale = Vector2(2, 2)
+
+[node name="sounds" type="Node" parent="."]
+
+[node name="bgm" type="AudioStreamPlayer2D" parent="sounds"]
+stream = ExtResource("12_qs5jh")
+autoplay = true
+
+[node name="button_sound" parent="sounds" instance=ExtResource("18_4s2s4")]
+unique_name_in_owner = true
+
+[node name="round_over_sound" type="AudioStreamPlayer" parent="sounds"]
+unique_name_in_owner = true
+stream = ExtResource("19_jalkb")

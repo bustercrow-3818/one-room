@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://leklb0uqr3sa"]
+[gd_scene load_steps=7 format=3 uid="uid://leklb0uqr3sa"]
 
 [ext_resource type="Theme" uid="uid://c6l3dj2ys3a12" path="res://assets/themes/panel_container.tres" id="1_7606a"]
 [ext_resource type="Script" uid="uid://o8syjqgjfn63" path="res://system/menus/game_over.gd" id="1_htfos"]
 [ext_resource type="Theme" uid="uid://oxy3yscs5r7r" path="res://assets/themes/label.tres" id="1_wpajq"]
 [ext_resource type="Theme" uid="uid://crgofrwwljspq" path="res://assets/themes/button.tres" id="2_7606a"]
+[ext_resource type="PackedScene" uid="uid://g5o0aaiu2fdp" path="res://system/components/button_sound.tscn" id="5_32rel"]
+[ext_resource type="AudioStream" uid="uid://cclikls8coxag" path="res://assets/sounds/game_over.wav" id="6_rhvb1"]
 
 [node name="game_over" type="Control"]
 z_index = 2
@@ -51,3 +53,10 @@ size_flags_horizontal = 4
 size_flags_vertical = 2
 theme = ExtResource("2_7606a")
 text = "Try Again"
+
+[node name="button_sound" parent="." instance=ExtResource("5_32rel")]
+unique_name_in_owner = true
+
+[node name="voice" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("6_rhvb1")

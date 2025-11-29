@@ -1,11 +1,10 @@
 BGM
-https://freesound.org/people/oceansonmars/sounds/826453/
-
-BGM 2
 https://freesound.org/people/gis_sweden/sounds/651797/
 
 Font
 https://ggbot.itch.io/eirian-font
 
-duuwip
-https://freesound.org/people/floomatic/sounds/826602/
+Game Over
+https://freesound.org/people/LilMati/sounds/434110/
+
+Other sound effects created using https://www.bfxr.net/

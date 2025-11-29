@@ -7,4 +7,4 @@ func initialize() -> void:
 	
 func connect_signals() -> void:
 	%dismiss_help.pressed.connect(hide)
-	pass
+	%dismiss_help.pressed.connect(%button_sound.play)

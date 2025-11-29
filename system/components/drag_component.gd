@@ -37,10 +37,9 @@ func _physics_process(_delta: float) -> void:
 		states.LOCKED:
 			locked()
 
-
 func mouse_entered() -> void:
 	mouse_detection = true
-	
+
 func mouse_exited() -> void:
 	mouse_detection = false
 
@@ -49,17 +48,17 @@ func change_state(new_state: states) -> void:
 	
 func idle() -> void:
 	if mouse_detection == true and Input.is_action_just_pressed("left_mouse"):
-		drag_offset = get_local_mouse_position()
+		rotation_degrees = 0
+		drag_offset = parent.to_local(get_global_mouse_position())
 		change_state(states.DRAGGING)
-	pass
-	
+
 func dragging() -> void:
-	parent.global_position = get_global_mouse_position() - drag_offset
+	parent.global_position = parent.get_global_mouse_position() - drag_offset
 	
 	if Input.is_action_just_released("left_mouse"):
 		SignalBus.block_snapped.emit()
 		change_state(states.IDLE)
-	
+
 func locked() -> void:
 	pass
 

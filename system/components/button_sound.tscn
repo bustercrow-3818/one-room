@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://g5o0aaiu2fdp"]
+
+[ext_resource type="AudioStream" uid="uid://qhtu6xc60pna" path="res://assets/sounds/button_pressed.wav" id="1_ncnko"]
+
+[node name="button_sound" type="AudioStreamPlayer"]
+stream = ExtResource("1_ncnko")

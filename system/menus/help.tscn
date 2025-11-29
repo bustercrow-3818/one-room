@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://catnrrf6q2a0n"]
+[gd_scene load_steps=7 format=3 uid="uid://catnrrf6q2a0n"]
 
 [ext_resource type="Theme" uid="uid://oxy3yscs5r7r" path="res://assets/themes/label.tres" id="1_2puhv"]
 [ext_resource type="Script" uid="uid://ddklucsmrd8y3" path="res://system/menus/help.gd" id="1_dinpy"]
 [ext_resource type="Theme" uid="uid://c6l3dj2ys3a12" path="res://assets/themes/panel_container.tres" id="2_2bgm8"]
 [ext_resource type="Theme" uid="uid://crgofrwwljspq" path="res://assets/themes/button.tres" id="2_pcxsa"]
+[ext_resource type="PackedScene" uid="uid://g5o0aaiu2fdp" path="res://system/components/button_sound.tscn" id="5_m1vci"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pcxsa"]
 bg_color = Color(0, 0, 0, 1)
@@ -40,7 +41,7 @@ layout_mode = 2
 layout_mode = 2
 theme = ExtResource("1_2puhv")
 theme_override_styles/normal = SubResource("StyleBoxFlat_pcxsa")
-text = "Welcome to Claustromania!
+text = "Welcome to Claustronometry!
 
 How to play:
 
@@ -69,3 +70,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("2_pcxsa")
 text = "I'm ready!"
+
+[node name="button_sound" parent="." instance=ExtResource("5_m1vci")]
+unique_name_in_owner = true

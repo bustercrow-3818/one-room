@@ -13,7 +13,9 @@ func _ready() -> void:
 
 func connect_signals() -> void:
 	%start_round.pressed.connect(ready_check)
+	%start_round.pressed.connect(%button_sound.play)
 	%show_help.pressed.connect(help_message.show)
+	%show_help.pressed.connect(%button_sound.play)
 	SignalBus.end_of_round.connect(end_of_round)
 	SignalBus.discarding_complete.connect(game_over)
 	
@@ -35,12 +37,12 @@ func round_start() -> void:
 	%MobHandler.start_round()
 
 func end_of_round() -> void:
+	%round_over_sound.play()
 	GameStats.rounds_completed += 1
 	round_counter.update_display()
 	pass
 
 func game_over() -> void:
 	round_counter.update_display()
-	game_over_screen.update_rounds_complete()
-	game_over_screen.show()
+	game_over_screen.game_over()
 	pass

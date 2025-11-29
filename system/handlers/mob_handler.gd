@@ -44,7 +44,6 @@ func set_next_goal() -> void:
 	if goal_list.is_empty():
 		next_goal = escape
 		SignalBus.mob_approaching_escape.emit()
-		print("heading to escape")
 		
 	else:
 		next_goal = goal_list.pick_random()

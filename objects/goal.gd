@@ -45,3 +45,4 @@ func penalty_animation(forward: bool = true) -> void:
 		animation.play_backwards("penalty")
 	else:
 		animation.play("penalty")
+	%discard_sound.play()

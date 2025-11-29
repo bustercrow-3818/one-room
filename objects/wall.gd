@@ -39,6 +39,7 @@ func play_locked_animation() -> void:
 	if not locked:
 		locked = true
 		animation.play("locked_in")
+		%locked_sound.play()
 
 func play_invalid_animation() -> void:
 	animation.play("invalid")
