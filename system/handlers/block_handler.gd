@@ -8,7 +8,9 @@ class_name BlockHandler
 
 @export_category("Node References")
 @export var block_scenes: Dictionary[String, PackedScene]
+@export var discard_button: Button
 
+var awaiting_discard: bool = false
 var discard_queue: Array[Block]
 var next_spawn_pos: Vector2
 var ready_for_round: bool = true
@@ -23,9 +25,10 @@ func initialize() -> void:
 	
 func connect_signals() -> void:
 	SignalBus.discard_block.connect(discard_new_block)
+	SignalBus.discard_waiting.connect(wait_for_discard_selection)
+	SignalBus.discard_specific_block.connect(discard_selected)
 	SignalBus.end_of_round.connect(end_of_round)
 	SignalBus.game_over.connect(game_over)
-	pass
 
 func is_ready_for_round() -> bool:
 	for i in get_live_blocks():
@@ -116,10 +119,23 @@ func discard_blocks_in_queue() -> void:
 			await i.animation.animation_finished
 			i.queue_free()
 		discard_queue.resize(0)
-		
+
 func game_over() -> void:
 	discard_queue = get_blocks()
 		
 	await discard_blocks_in_queue()
 	
 	SignalBus.discarding_complete.emit()
+
+func wait_for_discard_selection() -> void:
+	for i in get_live_blocks():
+		i.play_await_discard_animation()
+		i.set_discard_wait_status(true)
+
+func discard_selected(block: Block) -> void:
+	discard_queue.append(block)
+	discard_blocks_in_queue()
+	
+	for i in get_live_blocks():
+		i.set_discard_wait_status(false)
+		i.play_reset_animation()

@@ -12,4 +12,7 @@ signal not_ready(message: String)
 signal ready_restore(message: String)
 signal escape_reached
 signal discard_block
+signal discard_waiting
 signal discarding_complete
+signal discard_specific_block(id: Block)
+signal in_discard_zone(status: bool)

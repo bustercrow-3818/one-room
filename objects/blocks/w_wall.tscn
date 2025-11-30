@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://calar1255j7xt"]
+[gd_scene load_steps=11 format=3 uid="uid://calar1255j7xt"]
 
 [ext_resource type="Script" uid="uid://ct1vrjqn6e7pq" path="res://objects/wall.gd" id="1_f7744"]
 [ext_resource type="PackedScene" uid="uid://cieqrfyyix101" path="res://system/components/drag_component.tscn" id="2_2x25r"]
@@ -176,15 +176,45 @@ tracks/2/keys = {
 "values": [Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_d55fg"]
+resource_name = "await_discard"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("idle_line:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.05235987755982989, 0.0, -0.05235987755982989, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("idle_line:default_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 0, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2ullp"]
 _data = {
 &"RESET": SubResource("Animation_2ullp"),
+&"await_discard": SubResource("Animation_d55fg"),
 &"discard": SubResource("Animation_3unti"),
 &"invalid": SubResource("Animation_s0ur5"),
 &"locked_in": SubResource("Animation_8tlvn")
 }
 
-[node name="StaticBody2D" type="StaticBody2D" node_paths=PackedStringArray("lock_line", "idle_line", "collision_polygon", "detection_polygon") groups=["obstacle"]]
+[node name="w_wall" type="StaticBody2D" node_paths=PackedStringArray("lock_line", "idle_line", "collision_polygon", "detection_polygon") groups=["obstacle"]]
 z_index = 1
 script = ExtResource("1_f7744")
 lock_line = NodePath("locked_in_line")

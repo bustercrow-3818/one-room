@@ -45,5 +45,6 @@ func process_cost_check(id: Node, cost: int) -> void:
 
 func game_over() -> void:
 	bits = 0
+	disable_buttons(true)
 	score_display.text = str(bits)
 	SignalBus.game_over.emit()

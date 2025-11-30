@@ -11,6 +11,7 @@ var parent: Node2D
 
 var mouse_detection: bool = false
 var drag_offset: Vector2
+var in_discard_zone: bool = false
 
 enum states {
 	IDLE,
@@ -48,7 +49,6 @@ func change_state(new_state: states) -> void:
 	
 func idle() -> void:
 	if mouse_detection == true and Input.is_action_just_pressed("left_mouse"):
-		rotation_degrees = 0
 		drag_offset = parent.to_local(get_global_mouse_position())
 		change_state(states.DRAGGING)
 
@@ -56,6 +56,8 @@ func dragging() -> void:
 	parent.global_position = parent.get_global_mouse_position() - drag_offset
 	
 	if Input.is_action_just_released("left_mouse"):
+		if in_discard_zone:
+			SignalBus.discard_specific_block.emit(parent)
 		SignalBus.block_snapped.emit()
 		change_state(states.IDLE)
 
@@ -68,3 +70,13 @@ func unlock() -> void:
 
 func get_overlapping_areas() -> Array[Area2D]:
 	return mouse_detection_area.get_overlapping_areas()
+
+func set_discard_zone_status(status: bool) -> void:
+	in_discard_zone = status
+	pass
+
+func is_mouse_detected() -> bool:
+	if mouse_detection == true:
+		return true
+	else:
+		return false

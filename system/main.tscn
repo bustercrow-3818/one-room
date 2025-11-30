@@ -44,11 +44,12 @@ metadata/_custom_type_script = "uid://bvjero3ul8fie"
 [node name="red_mob" parent="MobHandler" instance=ExtResource("4_i8srq")]
 position = Vector2(512, 512)
 
-[node name="BlockHandler" parent="." instance=ExtResource("5_5231d")]
+[node name="BlockHandler" parent="." node_paths=PackedStringArray("discard_button") instance=ExtResource("5_5231d")]
 unique_name_in_owner = true
 new_round_block_qty = 2
 default_spawn_position = Vector2(1206, 256)
 multiple_spawn_offset = Vector2(0, 512)
+discard_button = NodePath("../player_interface/HBoxContainer/button_column/discard_new_block")
 
 [node name="GoalHandler" type="Node2D" parent="." node_paths=PackedStringArray("player") groups=["handler"]]
 unique_name_in_owner = true
@@ -129,8 +130,8 @@ Round"
 [node name="discard_new_block" type="Button" parent="player_interface/HBoxContainer/button_column" groups=["buttons"]]
 layout_mode = 2
 tooltip_text = "Cost: 6 Bits
-Randomly discards one block
-waiting to be placed"
+Allows one waiting block
+to be selected for discard"
 focus_mode = 0
 theme = ExtResource("11_qs5jh")
 text = "Discard

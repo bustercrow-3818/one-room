@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://ct1vrjqn6e7pq" path="res://objects/wall.gd" id="1_whhb0"]
 [ext_resource type="PackedScene" uid="uid://cieqrfyyix101" path="res://system/components/drag_component.tscn" id="2_cbadb"]
-[ext_resource type="AnimationLibrary" uid="uid://bd74wvtl6ft5g" path="res://assets/animations/block_animations.res" id="3_0gvm3"]
 [ext_resource type="AudioStream" uid="uid://ycnwe7bxsc4o" path="res://assets/sounds/discard.wav" id="4_2el2o"]
 [ext_resource type="AudioStream" uid="uid://bx1afk3bmm37p" path="res://assets/sounds/block_locked.wav" id="5_hg7h6"]
 
@@ -177,9 +176,39 @@ tracks/2/keys = {
 "values": [Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_hg7h6"]
+resource_name = "await_discard"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("idle_line:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.05235987755982989, 0.0, -0.05235987755982989, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("idle_line:default_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 0, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2ullp"]
 _data = {
 &"RESET": SubResource("Animation_2ullp"),
+&"await_discard": SubResource("Animation_hg7h6"),
 &"discard": SubResource("Animation_vsmut"),
 &"invalid": SubResource("Animation_s0ur5"),
 &"locked_in": SubResource("Animation_8tlvn")
@@ -221,8 +250,7 @@ width = 2.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_2ullp"),
-&"block_animations": ExtResource("3_0gvm3")
+&"": SubResource("AnimationLibrary_2ullp")
 }
 
 [node name="discard_sound" type="AudioStreamPlayer" parent="."]

@@ -3,6 +3,7 @@ class_name Block
 
 @onready var animation: AnimationPlayer = $AnimationPlayer
 @onready var detection_area: Area2D = $mouse_detection
+@onready var mouse_processing: Node2D = $drag_component
 
 @export_category("Stats")
 @export_range(0, 1) var glitch_chance: float = 0.12
@@ -15,8 +16,13 @@ class_name Block
 
 @export_range(0, 180, 45) var rotation_variation_degrees: int
 
+var awaiting_discard: bool = false
 var block_placed_status: bool = false
 var locked: bool = false
+
+func _physics_process(_delta: float) -> void:
+	if Input.is_action_just_pressed("left_mouse") and mouse_processing.is_mouse_detected() and awaiting_discard:
+		SignalBus.discard_specific_block.emit(self)
 
 func initialize() -> void:
 	set_initial_rotation()
@@ -46,6 +52,15 @@ func play_invalid_animation() -> void:
 
 func play_discard_animation() -> void:
 	animation.play("discard")
+
+func play_await_discard_animation() -> void:
+	animation.play("await_discard")
+
+func play_reset_animation() -> void:
+	animation.play("RESET")
+
+func set_discard_wait_status(status: bool) -> void:
+	awaiting_discard = status
 
 func get_overlapping_areas() -> Array[Area2D]:
 	return detection_area.get_overlapping_areas()
@@ -95,3 +110,8 @@ func remove_point_from_polygon(polygon: CollisionPolygon2D, point: Vector2) -> v
 
 func glitch_rotation() -> void:
 	rotation_degrees *= 1 + randf()
+
+func selected_for_discard() -> void:
+	discard()
+	await %discard_sound.finished
+	queue_free()
