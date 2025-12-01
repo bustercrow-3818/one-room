@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://djjkl08ldxl4m"]
+
+[ext_resource type="Script" uid="uid://d2gbydndabotm" path="res://system/handlers/upgrade_handler.gd" id="1_gqsiv"]
+[ext_resource type="AudioStream" uid="uid://bfddc34noxkrr" path="res://assets/sounds/upgrade_purchased.wav" id="2_dkct5"]
+
+[node name="upgrade_handler" type="Node2D" node_paths=PackedStringArray("buy_sound") groups=["handler"]]
+script = ExtResource("1_gqsiv")
+buy_sound = NodePath("AudioStreamPlayer")
+upgrade_spacing = Vector2(228, 0)
+
+[node name="shop" type="Node2D" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_dkct5")
+volume_db = -18.0

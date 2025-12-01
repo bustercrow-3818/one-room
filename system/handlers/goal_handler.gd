@@ -1,4 +1,5 @@
 extends Node2D
+class_name GoalHandler
 
 signal end_of_round
 

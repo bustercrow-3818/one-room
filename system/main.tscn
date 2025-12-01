@@ -1,14 +1,14 @@
-[gd_scene load_steps=23 format=3 uid="uid://kdws56c0f1mv"]
+[gd_scene load_steps=25 format=3 uid="uid://kdws56c0f1mv"]
 
 [ext_resource type="Script" uid="uid://fnrudborlcqa" path="res://system/main.gd" id="1_7rmty"]
-[ext_resource type="PackedScene" uid="uid://c5rqi38s0x6p" path="res://objects/room.tscn" id="2_2soig"]
+[ext_resource type="PackedScene" uid="uid://c5rqi38s0x6p" path="res://objects/room/room.tscn" id="2_2soig"]
 [ext_resource type="Script" uid="uid://bvjero3ul8fie" path="res://system/handlers/mob_handler.gd" id="3_5231d"]
 [ext_resource type="PackedScene" uid="uid://wuyu1r1e0d2i" path="res://entities/red_mob.tscn" id="4_i8srq"]
 [ext_resource type="PackedScene" uid="uid://cbk6tnuy58hld" path="res://system/handlers/block_handler.tscn" id="5_5231d"]
 [ext_resource type="Script" uid="uid://b2pue7uyn5m01" path="res://system/handlers/goal_handler.gd" id="7_io3fq"]
-[ext_resource type="PackedScene" uid="uid://by1y61ewiw0pm" path="res://objects/goal.tscn" id="8_jqgdb"]
+[ext_resource type="PackedScene" uid="uid://by1y61ewiw0pm" path="res://objects/room/goal.tscn" id="8_jqgdb"]
 [ext_resource type="PackedScene" uid="uid://c5nnh7twpycrw" path="res://system/interface/player_interface.tscn" id="9_5231d"]
-[ext_resource type="Script" uid="uid://btta0jg43g3ns" path="res://objects/escape.gd" id="9_i8srq"]
+[ext_resource type="Script" uid="uid://btta0jg43g3ns" path="res://objects/room/escape.gd" id="9_i8srq"]
 [ext_resource type="Script" uid="uid://x1pbmgbiv0n3" path="res://system/interface/player_interface.gd" id="10_i8srq"]
 [ext_resource type="Theme" uid="uid://oxy3yscs5r7r" path="res://assets/themes/label.tres" id="11_io3fq"]
 [ext_resource type="Theme" uid="uid://crgofrwwljspq" path="res://assets/themes/button.tres" id="11_qs5jh"]
@@ -19,6 +19,8 @@
 [ext_resource type="PackedScene" uid="uid://leklb0uqr3sa" path="res://system/menus/game_over.tscn" id="17_03ig6"]
 [ext_resource type="PackedScene" uid="uid://g5o0aaiu2fdp" path="res://system/components/button_sound.tscn" id="18_4s2s4"]
 [ext_resource type="AudioStream" uid="uid://cdi3qifla4qcv" path="res://assets/sounds/round_over.wav" id="19_jalkb"]
+[ext_resource type="PackedScene" uid="uid://djjkl08ldxl4m" path="res://system/handlers/upgrade_handler.tscn" id="20_26vh2"]
+[ext_resource type="PackedScene" uid="uid://cqypgekn6fnmc" path="res://objects/upgrades/less_is_more.tscn" id="21_0jj5d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5231d"]
 radius = 24.0
@@ -29,8 +31,11 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 [sub_resource type="Theme" id="Theme_jqgdb"]
 Panel/styles/panel = SubResource("StyleBoxFlat_io3fq")
 
-[node name="main" type="Node2D"]
+[node name="main" type="Node2D" node_paths=PackedStringArray("help_message", "game_over_screen", "round_counter")]
 script = ExtResource("1_7rmty")
+help_message = NodePath("interface/help")
+game_over_screen = NodePath("interface/game_over")
+round_counter = NodePath("player_interface/round_counter")
 
 [node name="room" parent="." instance=ExtResource("2_2soig")]
 
@@ -80,10 +85,13 @@ script = ExtResource("9_i8srq")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="escape/Area2D"]
 shape = SubResource("CircleShape2D_5231d")
 
-[node name="player_interface" parent="." node_paths=PackedStringArray("score_display") instance=ExtResource("9_5231d")]
+[node name="player_interface" parent="." node_paths=PackedStringArray("score_display", "discard_button") instance=ExtResource("9_5231d")]
 position = Vector2(512, 510)
 script = ExtResource("10_i8srq")
-score_display = NodePath("HBoxContainer/display_column/score_qty")
+interface_flash_duration = 0.65
+good_flash_color = Color(0.24858868, 0.82421875, 0.18351746, 1)
+score_display = NodePath("HBoxContainer/display_column/bits_qty")
+discard_button = NodePath("HBoxContainer/button_column/discard_new_block")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="player_interface"]
 custom_minimum_size = Vector2(192, 0)
@@ -97,14 +105,14 @@ scale = Vector2(1.5, 1.5)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="bits" type="Label" parent="player_interface/HBoxContainer/display_column"]
+[node name="bits_label" type="Label" parent="player_interface/HBoxContainer/display_column"]
 layout_mode = 2
 theme = ExtResource("11_io3fq")
 text = "Bits:"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="score_qty" type="Label" parent="player_interface/HBoxContainer/display_column"]
+[node name="bits_qty" type="Label" parent="player_interface/HBoxContainer/display_column"]
 layout_mode = 2
 theme = ExtResource("11_io3fq")
 text = "0"
@@ -138,6 +146,8 @@ text = "Discard
 New Block"
 script = ExtResource("12_3mgql")
 cost = 6
+tooltip_body = "Allows one waiting block
+to be selected for discard"
 
 [node name="round_counter" type="Label" parent="player_interface"]
 offset_left = -81.0
@@ -152,41 +162,6 @@ horizontal_alignment = 1
 script = ExtResource("14_3ukea")
 metadata/_edit_use_anchors_ = true
 
-[node name="help" parent="." instance=ExtResource("14_jqgdb")]
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 512.0
-offset_top = 512.0
-offset_right = 512.0
-offset_bottom = 512.0
-grow_horizontal = 1
-grow_vertical = 1
-scale = Vector2(2, 2)
-
-[node name="show_help" type="Button" parent="."]
-unique_name_in_owner = true
-offset_left = 962.0
-offset_top = -57.0
-offset_right = 994.0
-offset_bottom = -25.0
-scale = Vector2(1.5, 1.5)
-theme = ExtResource("11_qs5jh")
-text = "?"
-
-[node name="game_over" parent="." instance=ExtResource("17_03ig6")]
-visible = false
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = -512.0
-offset_top = -130.0
-offset_right = -512.0
-offset_bottom = -130.0
-grow_horizontal = 1
-grow_vertical = 1
-scale = Vector2(2, 2)
-
 [node name="sounds" type="Node" parent="."]
 
 [node name="bgm" type="AudioStreamPlayer2D" parent="sounds"]
@@ -199,3 +174,51 @@ unique_name_in_owner = true
 [node name="round_over_sound" type="AudioStreamPlayer" parent="sounds"]
 unique_name_in_owner = true
 stream = ExtResource("19_jalkb")
+
+[node name="interface" type="Node" parent="."]
+
+[node name="help" parent="interface" instance=ExtResource("14_jqgdb")]
+visible = false
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 512.0
+offset_top = 512.0
+offset_right = 512.0
+offset_bottom = 512.0
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(2, 2)
+
+[node name="show_help" type="Button" parent="interface"]
+unique_name_in_owner = true
+offset_left = 962.0
+offset_top = -57.0
+offset_right = 994.0
+offset_bottom = -25.0
+scale = Vector2(1.5, 1.5)
+theme = ExtResource("11_qs5jh")
+text = "?"
+
+[node name="game_over" parent="interface" instance=ExtResource("17_03ig6")]
+visible = false
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -512.0
+offset_top = -130.0
+offset_right = -512.0
+offset_bottom = -130.0
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(2, 2)
+
+[node name="upgrade_handler" parent="." node_paths=PackedStringArray("player", "block_handler", "goal_handler", "mob_handler") instance=ExtResource("20_26vh2")]
+unique_name_in_owner = true
+position = Vector2(-454, 348)
+upgrade_pool = Array[PackedScene]([ExtResource("21_0jj5d")])
+player = NodePath("../player_interface")
+block_handler = NodePath("../BlockHandler")
+goal_handler = NodePath("../GoalHandler")
+mob_handler = NodePath("../MobHandler")
+shop_size = 2

@@ -29,6 +29,10 @@ func connect_signals() -> void:
 	SignalBus.discard_specific_block.connect(discard_selected)
 	SignalBus.end_of_round.connect(end_of_round)
 	SignalBus.game_over.connect(game_over)
+	
+	for i in get_children():
+		if i is Block:
+			i.discard_chosen.connect(discard_selected)
 
 func is_ready_for_round() -> bool:
 	for i in get_live_blocks():
@@ -116,7 +120,7 @@ func discard_blocks_in_queue() -> void:
 	else:
 		for i in discard_queue:
 			i.discard()
-			await i.animation.animation_finished
+			await get_tree().create_timer(0.15).timeout
 			i.queue_free()
 		discard_queue.resize(0)
 
@@ -124,6 +128,7 @@ func game_over() -> void:
 	discard_queue = get_blocks()
 		
 	await discard_blocks_in_queue()
+	await get_tree().create_timer(0.5).timeout
 	
 	SignalBus.discarding_complete.emit()
 

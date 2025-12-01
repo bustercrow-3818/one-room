@@ -1,6 +1,8 @@
 extends StaticBody2D
 class_name Block
 
+signal discard_chosen(id: Block)
+
 @onready var animation: AnimationPlayer = $AnimationPlayer
 @onready var detection_area: Area2D = $mouse_detection
 @onready var mouse_processing: Node2D = $drag_component
@@ -112,6 +114,4 @@ func glitch_rotation() -> void:
 	rotation_degrees *= 1 + randf()
 
 func selected_for_discard() -> void:
-	discard()
-	await %discard_sound.finished
-	queue_free()
+	discard_chosen.emit(self)

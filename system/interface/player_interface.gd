@@ -1,8 +1,15 @@
 extends Node2D
 class_name Player
 
+@export_category("Process Attributes")
+@export_range(0, 2, 0.01) var interface_flash_duration: float
+@export_color_no_alpha var good_flash_color: Color
+@export_color_no_alpha var bad_flash_color: Color
+
+@export_category("Node References")
 @export var bits: int = 0
 @export var score_display: Label
+@export var discard_button: Button
 
 func initialize() -> void:
 	connect_signals()
@@ -20,13 +27,17 @@ func round_start() -> void:
 func end_of_round() -> void:
 	disable_buttons(false)
 
+func adjust_discard_cost(qty: int) -> void:
+	discard_button.cost += qty
+	discard_button.update_tooltip()
+
 func adjust_bits(qty: int) -> void:
 	bits += qty
 	score_display.text = str(bits)
-	
-	if qty != 0 and bits <= 0:
-		disable_buttons(true)
-	
+
+func get_current_discard_cost() -> int:
+	return discard_button.cost
+
 func get_current_bits() -> int:
 	return bits
 
@@ -48,3 +59,10 @@ func game_over() -> void:
 	disable_buttons(true)
 	score_display.text = str(bits)
 	SignalBus.game_over.emit()
+
+func interface_flash(piece: Control, color: Color) -> void:
+	var tween: Tween = create_tween()
+	var original_color: Color = piece.modulate
+	
+	tween.tween_property(piece, "self_modulate", color, interface_flash_duration / 2)
+	tween.tween_property(piece, "self_modulate", original_color, interface_flash_duration / 2)

@@ -1,8 +1,12 @@
 extends Node2D
 
-@onready var help_message: Control = $help
-@onready var game_over_screen: Control = $game_over
-@onready var round_counter: Label = $player_interface/round_counter
+@export_category("Node References")
+@export var help_message: Control
+@export var game_over_screen: Control
+@export var round_counter: Label
+@export var upgrade_handler: UpgradeHandler
+
+
 
 var room_ready: bool = true
 var error_messages: Array[String]
@@ -10,6 +14,7 @@ var error_messages: Array[String]
 func _ready() -> void:
 	connect_signals()
 	propagate_call("initialize", [], true)
+	
 
 func connect_signals() -> void:
 	%start_round.pressed.connect(ready_check)
