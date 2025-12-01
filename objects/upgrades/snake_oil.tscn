@@ -1,17 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://cqypgekn6fnmc"]
+[gd_scene load_steps=4 format=3 uid="uid://b5j4xnrvtv0ib"]
 
-[ext_resource type="Script" uid="uid://5gymdy3e0fny" path="res://objects/upgrades/less_is_more.gd" id="1_yrv2i"]
-[ext_resource type="Theme" uid="uid://crgofrwwljspq" path="res://assets/themes/button.tres" id="2_3tpdc"]
+[ext_resource type="Script" uid="uid://d1jgdxxg1b1wm" path="res://objects/upgrades/snake_oil.gd" id="1_3ui5g"]
+[ext_resource type="Theme" uid="uid://crgofrwwljspq" path="res://assets/themes/button.tres" id="2_ydjh1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8iwfi"]
 bg_color = Color(0, 0, 0, 1)
 
-[node name="less_is_more" type="Node2D" node_paths=PackedStringArray("main_button", "buy_cancel_container", "buy", "cancel")]
-script = ExtResource("1_yrv2i")
-unique = true
-cost_to_purchase = 10
-upgrade_name = "Less is More"
-description = "Create one fewer block between rounds but discard cost is doubled."
+[node name="snake_oil" type="Node2D" node_paths=PackedStringArray("main_button", "buy_cancel_container", "buy", "cancel")]
+script = ExtResource("1_3ui5g")
+cost_to_purchase = 3
+upgrade_name = "Snake Oil"
+description = "+1 bit at end of round
+Increased chance of glitched blocks"
 main_button = NodePath("VBoxContainer/Button")
 buy_cancel_container = NodePath("VBoxContainer/PanelContainer/HBoxContainer")
 buy = NodePath("VBoxContainer/PanelContainer/HBoxContainer/buy")
@@ -26,10 +26,8 @@ offset_bottom = 141.0
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
-theme = ExtResource("2_3tpdc")
-text = "Less is More
-
-Cost: "
+theme = ExtResource("2_ydjh1")
+text = "This will be updated at runtime"
 autowrap_mode = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
@@ -45,14 +43,14 @@ layout_mode = 2
 [node name="buy" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource("2_3tpdc")
+theme = ExtResource("2_ydjh1")
 theme_override_font_sizes/font_size = 16
 text = "Buy"
 
 [node name="cancel" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource("2_3tpdc")
+theme = ExtResource("2_ydjh1")
 theme_override_font_sizes/font_size = 16
 text = "Cancel
 "

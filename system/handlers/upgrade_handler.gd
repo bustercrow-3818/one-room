@@ -38,6 +38,7 @@ func create_upgrade(upgrade: PackedScene) -> Upgrade:
 	call_deferred("add_child", new_upgrade)
 	initialize_upgrade(new_upgrade)
 	new_upgrade.purchased.connect(upgrade_purchased)
+	new_upgrade.unique_upgrade.connect(remove_unique_from_pool.bind(upgrade))
 	return new_upgrade
 
 func create_random_upgrade() -> Upgrade:
@@ -47,6 +48,9 @@ func create_random_upgrade() -> Upgrade:
 	new_upgrade = create_upgrade(new_upgrade_scene)
 	
 	return new_upgrade
+
+func remove_unique_from_pool(id: PackedScene) -> void:
+	upgrade_pool.erase(id)
 
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://kdws56c0f1mv"]
+[gd_scene load_steps=24 format=3 uid="uid://kdws56c0f1mv"]
 
 [ext_resource type="Script" uid="uid://fnrudborlcqa" path="res://system/main.gd" id="1_7rmty"]
 [ext_resource type="PackedScene" uid="uid://c5rqi38s0x6p" path="res://objects/room/room.tscn" id="2_2soig"]
@@ -20,7 +20,6 @@
 [ext_resource type="PackedScene" uid="uid://g5o0aaiu2fdp" path="res://system/components/button_sound.tscn" id="18_4s2s4"]
 [ext_resource type="AudioStream" uid="uid://cdi3qifla4qcv" path="res://assets/sounds/round_over.wav" id="19_jalkb"]
 [ext_resource type="PackedScene" uid="uid://djjkl08ldxl4m" path="res://system/handlers/upgrade_handler.tscn" id="20_26vh2"]
-[ext_resource type="PackedScene" uid="uid://cqypgekn6fnmc" path="res://objects/upgrades/less_is_more.tscn" id="21_0jj5d"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5231d"]
 radius = 24.0
@@ -52,8 +51,8 @@ position = Vector2(512, 512)
 [node name="BlockHandler" parent="." node_paths=PackedStringArray("discard_button") instance=ExtResource("5_5231d")]
 unique_name_in_owner = true
 new_round_block_qty = 2
-default_spawn_position = Vector2(1206, 256)
-multiple_spawn_offset = Vector2(0, 512)
+default_spawn_position = Vector2(1206, 64)
+multiple_spawn_offset = Vector2(0, 448)
 discard_button = NodePath("../player_interface/HBoxContainer/button_column/discard_new_block")
 
 [node name="GoalHandler" type="Node2D" parent="." node_paths=PackedStringArray("player") groups=["handler"]]
@@ -216,9 +215,10 @@ scale = Vector2(2, 2)
 [node name="upgrade_handler" parent="." node_paths=PackedStringArray("player", "block_handler", "goal_handler", "mob_handler") instance=ExtResource("20_26vh2")]
 unique_name_in_owner = true
 position = Vector2(-454, 348)
-upgrade_pool = Array[PackedScene]([ExtResource("21_0jj5d")])
+scale = Vector2(1.5, 1.5)
 player = NodePath("../player_interface")
 block_handler = NodePath("../BlockHandler")
 goal_handler = NodePath("../GoalHandler")
 mob_handler = NodePath("../MobHandler")
 shop_size = 2
+upgrade_spacing = Vector2(152, 0)

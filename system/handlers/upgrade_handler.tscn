@@ -1,10 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://djjkl08ldxl4m"]
+[gd_scene load_steps=8 format=3 uid="uid://djjkl08ldxl4m"]
 
 [ext_resource type="Script" uid="uid://d2gbydndabotm" path="res://system/handlers/upgrade_handler.gd" id="1_gqsiv"]
+[ext_resource type="PackedScene" uid="uid://cqypgekn6fnmc" path="res://objects/upgrades/less_is_more.tscn" id="2_bju3k"]
 [ext_resource type="AudioStream" uid="uid://bfddc34noxkrr" path="res://assets/sounds/upgrade_purchased.wav" id="2_dkct5"]
+[ext_resource type="PackedScene" uid="uid://b5j4xnrvtv0ib" path="res://objects/upgrades/snake_oil.tscn" id="3_ftpwb"]
+[ext_resource type="PackedScene" uid="uid://bb5g826s4kwj" path="res://objects/upgrades/bogo.tscn" id="4_ftpwb"]
+[ext_resource type="PackedScene" uid="uid://ceefsyhg53i18" path="res://objects/upgrades/vaccinate.tscn" id="5_0k53b"]
+[ext_resource type="PackedScene" uid="uid://cc2spwld4ycro" path="res://objects/upgrades/frugality.tscn" id="6_xjy8v"]
 
 [node name="upgrade_handler" type="Node2D" node_paths=PackedStringArray("buy_sound") groups=["handler"]]
 script = ExtResource("1_gqsiv")
+upgrade_pool = Array[PackedScene]([ExtResource("2_bju3k"), ExtResource("3_ftpwb"), ExtResource("4_ftpwb"), ExtResource("5_0k53b"), ExtResource("6_xjy8v")])
 buy_sound = NodePath("AudioStreamPlayer")
 upgrade_spacing = Vector2(228, 0)
 

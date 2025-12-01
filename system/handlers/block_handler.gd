@@ -5,6 +5,7 @@ class_name BlockHandler
 @export var new_round_block_qty: int = 1
 @export var default_spawn_position: Vector2
 @export var multiple_spawn_offset: Vector2
+@export var glitch_chance: float = 0.12
 
 @export_category("Node References")
 @export var block_scenes: Dictionary[String, PackedScene]
@@ -69,6 +70,7 @@ func create_new_block(type: String = "random") -> void: ## Type of block can be 
 	
 	call_deferred("add_child", new_block)
 	new_block.propagate_call("initialize")
+	new_block.glitch_check(glitch_chance)
 	new_block.position = next_spawn_pos
 	next_spawn_pos += multiple_spawn_offset
 

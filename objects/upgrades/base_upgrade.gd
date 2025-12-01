@@ -1,9 +1,11 @@
 extends Node2D
 class_name Upgrade
 
-signal purchased(id: Upgrade)
+signal purchased
+signal unique_upgrade(id: Upgrade)
 
 @export_category("Upgrade Attributes")
+@export var unique: bool = false
 @export_range(0, 20, 1.0) var cost_to_purchase: int
 @export_range(0, 20, 1.0) var other_cost: int
 @export var upgrade_name: String
@@ -41,7 +43,6 @@ func update_upgrade_text() -> void:
 
 func update_tooltip() -> void:
 	main_button.tooltip_text = description
-	pass
 
 func on_purchase() -> void: ## Automatically called if the player interface approves a cost check.
 	
@@ -53,6 +54,8 @@ func cost_check() -> void: ## Checks the purchase cost again the player's curren
 	
 func cost_approved() -> void:
 	purchased.emit(self)
+	if unique:
+		unique_upgrade.emit()
 	on_purchase()
 	hide_shop_interface()
 

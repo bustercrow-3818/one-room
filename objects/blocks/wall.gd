@@ -29,7 +29,6 @@ func _physics_process(_delta: float) -> void:
 func initialize() -> void:
 	set_initial_rotation()
 	connect_signals()
-	glitch_check()
 	
 func connect_signals() -> void:
 	SignalBus.round_start.connect(play_locked_animation)
@@ -74,16 +73,15 @@ func discard() -> void:
 	animation.play("discard")
 	%discard_sound.play()
 
-func glitch_check() -> void:
+func glitch_check(chance: float) -> void:
 	var shape_check: float = randf_range(0, 1)
 	var spin_check: float = randf_range(0, 1)
 	
-	if shape_check <= glitch_chance:
+	if shape_check <= chance:
 		glitch_shape()
 	
-	if spin_check <= glitch_chance:
+	if spin_check <= chance:
 		glitch_rotation()
-	pass
 
 func glitch_shape() -> void:
 	var point_list: Array[Vector2]

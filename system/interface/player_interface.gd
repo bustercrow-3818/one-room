@@ -51,6 +51,7 @@ func process_cost_check(id: Node, cost: int) -> void:
 		game_over()
 		return
 	else:
+		SignalBus.approved_purchase.emit(id)
 		id.cost_approved()
 		adjust_bits(-cost)
 
