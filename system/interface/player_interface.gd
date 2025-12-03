@@ -11,6 +11,8 @@ class_name Player
 @export var score_display: Label
 @export var discard_button: Button
 
+var message_queue: Array[String]
+
 func initialize() -> void:
 	connect_signals()
 
@@ -47,7 +49,7 @@ func disable_buttons(state: bool) -> void:
 			i.disabled = state
 
 func process_cost_check(id: Node, cost: int) -> void:
-	if cost >= bits:
+	if cost > bits:
 		game_over()
 		return
 	else:

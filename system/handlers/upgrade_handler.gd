@@ -28,7 +28,7 @@ func is_ready_for_round() -> bool:
 	return true
 
 
-
+#region Upgrade creation
 func initialize_upgrade(new_upgrade: Upgrade) -> void:
 	new_upgrade.set_initial_references(player, block_handler, mob_handler, goal_handler)
 	new_upgrade.initialize()
@@ -53,10 +53,15 @@ func remove_unique_from_pool(id: PackedScene) -> void:
 	upgrade_pool.erase(id)
 
 
+#endregion
 
+
+
+#region Shop functions
 func initialize_shop() -> void:
 	for i in range(shop_size):
 		add_upgrade_to_shop(create_random_upgrade())
+		await get_tree().physics_frame
 	
 	update_shop_positions()
 
@@ -74,3 +79,12 @@ func update_shop_positions() -> void:
 	for i in shop_pool:
 		i.position = current_offset
 		current_offset += upgrade_spacing
+
+
+#endregion
+
+#region Flair
+
+
+
+#endregion

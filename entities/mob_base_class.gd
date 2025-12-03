@@ -21,6 +21,7 @@ func initialize() -> void:
 func connect_signals() -> void:
 	nav_agent.target_reached.connect(goal_reached)
 	SignalBus.end_of_round.connect(end_of_round)
+	SignalBus.game_over.connect(game_over)
 	
 func path_init() -> void:
 	await get_tree().physics_frame
@@ -74,3 +75,7 @@ func goal_reached() -> void:
 func end_of_round() -> void:
 	nav_agent.target_position = global_position
 	ready_to_move = false
+
+func game_over() -> void:
+	ready_to_move = false
+	nav_agent.target_position = global_position

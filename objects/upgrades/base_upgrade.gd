@@ -72,3 +72,8 @@ func hide_shop_interface() -> void:
 func show_shop_interface() -> void:
 	for i in get_children():
 		i.show()
+
+
+
+func is_unique() -> bool:
+	return unique
