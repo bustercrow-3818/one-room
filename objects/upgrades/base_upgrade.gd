@@ -48,7 +48,6 @@ func on_purchase() -> void: ## Automatically called if the player interface appr
 	pass
 
 func cost_check() -> void: ## Checks the purchase cost again the player's current bits. The player interface will determine whether to buy the upgrade or end the game due to not enough bits.
-
 	SignalBus.cost_check.emit(self, cost_to_purchase)
 	
 func cost_approved() -> void:
@@ -73,6 +72,10 @@ func hide_shop_interface() -> void:
 func show_shop_interface() -> void:
 	for i in get_children():
 		i.show()
+
+func discard_upgrade() -> void:
+	
+	pass
 
 
 

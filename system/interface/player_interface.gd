@@ -69,3 +69,15 @@ func interface_flash(piece: Control, color: Color) -> void:
 	
 	tween.tween_property(piece, "self_modulate", color, interface_flash_duration / 2)
 	tween.tween_property(piece, "self_modulate", original_color, interface_flash_duration / 2)
+
+func event_message(message: String, location: Vector2, travel_dist: Vector2, lifetime: float) -> void:
+	var label = Label.new()
+	
+	label.global_position = location
+	label.text = message
+	
+	var tween = create_tween()
+	tween.tween_property(label, "position", label.position + travel_dist, lifetime)
+	tween.parallel().tween_property(label, "modulate", Color(1,1,1,0), lifetime)
+	await tween.finished
+	label.queue_free()

@@ -43,6 +43,7 @@ buttons=""
 [gui]
 
 timers/tooltip_delay_sec=0.0
+theme/custom="uid://fs3oud7qxc4o"
 
 [input]
 
