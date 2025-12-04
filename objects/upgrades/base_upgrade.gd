@@ -28,8 +28,7 @@ func initialize() -> void:
 	update_tooltip()
 
 func connect_signals() -> void:
-	main_button.pressed.connect(show_buy_cancel_interface)
-	cancel.pressed.connect(hide_buy_cancel_interface)
+	main_button.pressed.connect(toggle_buy_cancel_interface)
 	buy.pressed.connect(cost_check)
 
 func set_initial_references(p: Player, b: BlockHandler, m: MobHandler, g: GoalHandler) -> void:
@@ -59,11 +58,13 @@ func cost_approved() -> void:
 	on_purchase()
 	hide_shop_interface()
 
-func show_buy_cancel_interface() -> void:
-	buy_cancel_container.show()
-	
-func hide_buy_cancel_interface() -> void:
-	buy_cancel_container.hide()
+
+
+func toggle_buy_cancel_interface() -> void:
+	if buy_cancel_container.visible == true:
+		buy_cancel_container.hide()
+	else:
+		buy_cancel_container.show()
 
 func hide_shop_interface() -> void:
 	for i in get_children():

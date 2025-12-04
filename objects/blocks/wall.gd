@@ -113,3 +113,23 @@ func glitch_rotation() -> void:
 
 func selected_for_discard() -> void:
 	discard_chosen.emit(self)
+
+func ready_check() -> bool:
+	var status: bool = true
+	
+	if detection_area.get_overlapping_areas().is_empty():
+		status = false
+		play_invalid_animation()
+		return status
+	else:
+		pass
+	
+	for i in detection_area.get_overlapping_areas():
+		if i.is_in_group("out_of_bounds_area") or i.is_in_group("obstacle"):
+			status = false
+			play_invalid_animation()
+			return status
+		else:
+			pass
+		
+	return status

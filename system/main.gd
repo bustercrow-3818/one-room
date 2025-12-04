@@ -14,6 +14,7 @@ var error_messages: Array[String]
 func _ready() -> void:
 	connect_signals()
 	propagate_call("initialize", [], true)
+	GameStats.initialize_stats()
 	
 
 func connect_signals() -> void:

@@ -9,7 +9,7 @@ bg_color = Color(0, 0, 0, 1)
 [node name="less_is_more" type="Node2D" node_paths=PackedStringArray("main_button", "buy_cancel_container", "buy", "cancel")]
 script = ExtResource("1_yrv2i")
 unique = true
-cost_to_purchase = 6
+cost_to_purchase = 16
 upgrade_name = "Less is More"
 description = "Create one fewer block between rounds but discard cost is doubled."
 main_button = NodePath("VBoxContainer/Button")

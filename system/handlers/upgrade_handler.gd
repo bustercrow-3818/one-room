@@ -46,6 +46,8 @@ func create_random_upgrade() -> Upgrade:
 	var new_upgrade: Upgrade
 	
 	new_upgrade = create_upgrade(new_upgrade_scene)
+	if new_upgrade.is_unique():
+		remove_unique_from_pool(new_upgrade_scene)
 	
 	return new_upgrade
 

@@ -9,7 +9,7 @@ bg_color = Color(0, 0, 0, 1)
 [node name="frugality" type="Node2D" node_paths=PackedStringArray("main_button", "buy_cancel_container", "buy", "cancel")]
 script = ExtResource("1_nqv8h")
 unique = true
-cost_to_purchase = 10
+cost_to_purchase = 6
 upgrade_name = "Frugality"
 description = "For each consecutive round without
 spending any bits, +1 additional bit

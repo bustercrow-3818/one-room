@@ -78,7 +78,7 @@ size = Vector2(1024, 64)
 size = Vector2(64, 1024)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lcjuh"]
-size = Vector2(128, 128)
+size = Vector2(127, 127)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f4clh"]
 size = Vector2(128, 128)
@@ -112,7 +112,6 @@ tile_set = SubResource("TileSet_4d8i4")
 navigation_enabled = false
 
 [node name="out_of_bounds_area" type="Area2D" parent="." groups=["obstacle", "out_of_bounds_area"]]
-visible = false
 
 [node name="north_wall" type="CollisionShape2D" parent="out_of_bounds_area"]
 position = Vector2(512, 32)
@@ -200,6 +199,7 @@ position = Vector2(0, 244)
 shape = SubResource("RectangleShape2D_8rv7e")
 
 [node name="Line2D3" type="Line2D" parent="."]
+z_index = 2
 points = PackedVector2Array(448, 448, 448, 576, 576, 576, 576, 448)
 closed = true
 width = 2.0

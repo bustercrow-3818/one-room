@@ -8,6 +8,7 @@ var parent: Node2D
 @export_category("Characteristics")
 @export var state: states = states.IDLE
 @export var latching: bool = false
+@export var snap_distance: int
 
 var mouse_detection: bool = false
 var drag_offset: Vector2
@@ -56,9 +57,8 @@ func dragging() -> void:
 	parent.global_position = parent.get_global_mouse_position() - drag_offset
 	
 	if Input.is_action_just_released("left_mouse"):
-		if in_discard_zone:
-			SignalBus.discard_specific_block.emit(parent)
 		SignalBus.block_snapped.emit()
+		snap_to_position()
 		change_state(states.IDLE)
 
 func locked() -> void:
@@ -80,3 +80,6 @@ func is_mouse_detected() -> bool:
 		return true
 	else:
 		return false
+
+func snap_to_position() -> void:
+	parent.global_position = parent.global_position.snapped(Vector2(snap_distance, snap_distance))

@@ -233,17 +233,17 @@ polygon = PackedVector2Array(-32, -32, -32, -160, 32, -160, 32, -32, 96, -32, 96
 [node name="mouse_detection" type="Area2D" parent="." groups=["obstacle"]]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="mouse_detection"]
-polygon = PackedVector2Array(-32, -32, -32, -160, 32, -160, 32, -32, 96, -32, 96, 32, 32, 32, -32, 32, -96, 32, -96, -32)
+polygon = PackedVector2Array(-31, -31, -31, -159, 31, -159, 31, -31, 95, -31, 95, 31, 31, 31, -31, 31, -95, 31, -95, -31)
 
 [node name="locked_in_line" type="Line2D" parent="."]
 scale = Vector2(3, 3)
-points = PackedVector2Array(96, -32, 96, 32, 32, 32, -32.601334, 32, -96, 32, -96, -32, -32, -32, -32, -160, 32, -160, 32, -32, 96, -32)
+points = PackedVector2Array(96, -32, 96, 32, 32, 32, -32, 32, -96, 32, -96, -32, -32, -32, -32, -160, 32, -160, 32, -32, 96, -32)
 closed = true
 width = 2.0
 default_color = Color(0, 0.23, 0.92, 0)
 
 [node name="idle_line" type="Line2D" parent="."]
-points = PackedVector2Array(96, -32, 96, 32, 32, 32, -32.06157, 32.000008, -96, 32, -96, -32, -32, -32, -32, -160, 32, -160, 32, -32)
+points = PackedVector2Array(96, -32, 96, 32, 32, 32, -32, 32, -96, 32, -96, -32, -32, -32, -32, -160, 32, -160, 32, -32)
 closed = true
 width = 2.0
 

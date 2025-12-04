@@ -233,7 +233,7 @@ polygon = PackedVector2Array(-96, -32, -32, -32, -32, 32, 32, 32, 32, 96, 96, 96
 [node name="mouse_detection" type="Area2D" parent="." groups=["obstacle"]]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="mouse_detection"]
-polygon = PackedVector2Array(-96, -32, -32, -32, -32, 32, 32, 32, 32, 96, 96, 96, 96, -32, 32, -32, 32, -96, -96, -96)
+polygon = PackedVector2Array(-95, -33, -31, -33, -31, 31, 33, 31, 33, 95, 95, 95, 95, -31, 31, -31, 31, -95, -95, -95)
 
 [node name="sprites" type="Node2D" parent="."]
 

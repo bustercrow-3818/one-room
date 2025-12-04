@@ -4,3 +4,4 @@
 
 [node name="drag_component" type="Node2D"]
 script = ExtResource("1_fekyt")
+snap_distance = 8

@@ -37,18 +37,10 @@ func connect_signals() -> void:
 
 func is_ready_for_round() -> bool:
 	for i in get_live_blocks():
-		var areas: Array[Area2D] = i.get_overlapping_areas()
-		
-		if areas.is_empty():
-			i.play_invalid_animation()
+		if i.ready_check() == false:
 			return false
-		
-		for j in areas:
-			if j.is_in_group("out_of_bounds_area") or j.is_in_group("obstacle"):
-				i.play_invalid_animation()
-				return false
-			else:
-				pass
+		else:
+			pass
 	
 	return true
 
