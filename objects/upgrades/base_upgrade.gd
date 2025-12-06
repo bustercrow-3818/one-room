@@ -2,12 +2,14 @@ extends Node2D
 class_name Upgrade
 
 signal purchased
+signal discard
 signal unique_upgrade(id: Upgrade)
 
 @export_category("Upgrade Attributes")
-@export var unique: bool = false
+@export var unique: bool = true
 @export_range(0, 20, 1.0) var cost_to_purchase: int
 @export_range(0, 20, 1.0) var other_cost: int
+@export_range(0, 20, 1.0) var discard_cost: int = 2
 @export var upgrade_name: String
 @export_multiline var description: String
 
@@ -15,7 +17,7 @@ signal unique_upgrade(id: Upgrade)
 @export var main_button: Button
 @export var buy_cancel_container: HBoxContainer
 @export var buy: Button
-@export var cancel: Button
+@export var shop_discard: Button
 var player: Player
 var block_handler: BlockHandler
 var mob_handler: MobHandler
@@ -42,6 +44,7 @@ func update_upgrade_text() -> void:
 
 func update_tooltip() -> void:
 	main_button.tooltip_text = description
+	shop_discard.tooltip_text = "Cost: " + str(discard_cost)
 
 func on_purchase() -> void: ## Automatically called if the player interface approves a cost check.
 	

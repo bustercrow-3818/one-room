@@ -83,3 +83,5 @@ func is_mouse_detected() -> bool:
 
 func snap_to_position() -> void:
 	parent.global_position = parent.global_position.snapped(Vector2(snap_distance, snap_distance))
+	await get_tree().physics_frame
+	parent.ready_check()

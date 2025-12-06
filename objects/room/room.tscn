@@ -133,6 +133,22 @@ shape = SubResource("RectangleShape2D_c0xyw")
 position = Vector2(512, 512)
 shape = SubResource("RectangleShape2D_lcjuh")
 
+[node name="inset_west" type="CollisionShape2D" parent="out_of_bounds_area"]
+position = Vector2(128, 512)
+shape = SubResource("RectangleShape2D_f4clh")
+
+[node name="inset_east" type="CollisionShape2D" parent="out_of_bounds_area"]
+position = Vector2(896, 512)
+shape = SubResource("RectangleShape2D_e1p5a")
+
+[node name="inset_north" type="CollisionShape2D" parent="out_of_bounds_area"]
+position = Vector2(512, 128)
+shape = SubResource("RectangleShape2D_u462d")
+
+[node name="inset_south" type="CollisionShape2D" parent="out_of_bounds_area"]
+position = Vector2(512, 896)
+shape = SubResource("RectangleShape2D_7rh0e")
+
 [node name="wall_collision" type="StaticBody2D" parent="." groups=["obstacle"]]
 visible = false
 

@@ -6,8 +6,9 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8iwfi"]
 bg_color = Color(0, 0, 0, 1)
 
-[node name="snake_oil" type="Node2D" node_paths=PackedStringArray("main_button", "buy_cancel_container", "buy", "cancel")]
+[node name="snake_oil" type="Node2D" node_paths=PackedStringArray("main_button", "buy_cancel_container", "buy", "shop_discard")]
 script = ExtResource("1_3ui5g")
+unique = false
 cost_to_purchase = 3
 upgrade_name = "Snake Oil"
 description = "+1 bit at end of round
@@ -15,7 +16,7 @@ Increased chance of glitched blocks"
 main_button = NodePath("VBoxContainer/Button")
 buy_cancel_container = NodePath("VBoxContainer/PanelContainer/HBoxContainer")
 buy = NodePath("VBoxContainer/PanelContainer/HBoxContainer/buy")
-cancel = NodePath("VBoxContainer/PanelContainer/HBoxContainer/cancel")
+shop_discard = NodePath("VBoxContainer/PanelContainer/HBoxContainer/cancel")
 metadata/_custom_type_script = "uid://cdm2fshguywsf"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -52,5 +53,4 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("2_ydjh1")
 theme_override_font_sizes/font_size = 16
-text = "Cancel
-"
+text = "Discard"

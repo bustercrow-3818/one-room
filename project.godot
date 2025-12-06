@@ -19,7 +19,7 @@ config/icon="res://assets/icon.svg"
 [autoload]
 
 SignalBus="*res://system/signal_bus.gd"
-GameStats="*res://game_stats.gd"
+GameStats="*res://system/game_stats.gd"
 
 [debug]
 

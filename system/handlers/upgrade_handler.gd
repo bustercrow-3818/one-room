@@ -38,6 +38,7 @@ func create_upgrade(upgrade: PackedScene) -> Upgrade:
 	call_deferred("add_child", new_upgrade)
 	initialize_upgrade(new_upgrade)
 	new_upgrade.purchased.connect(upgrade_purchased)
+	new_upgrade.shop_discard.pressed.connect(discard_upgrade.bind(new_upgrade))
 	new_upgrade.unique_upgrade.connect(remove_unique_from_pool.bind(upgrade))
 	return new_upgrade
 
@@ -81,6 +82,11 @@ func update_shop_positions() -> void:
 	for i in shop_pool:
 		i.position = current_offset
 		current_offset += upgrade_spacing
+
+func discard_upgrade(id: Upgrade) -> void:
+	await id.discard_upgrade()
+	
+	pass
 
 
 #endregion

@@ -33,14 +33,20 @@ func initialize() -> void:
 func connect_signals() -> void:
 	SignalBus.round_start.connect(play_locked_animation)
 
+
+
 func set_initial_rotation() -> void:
 	rotation_degrees = snappedi(randi_range(0, 360), rotation_variation_degrees)
+
+
 
 func is_block_placed() -> bool:
 	return block_placed_status
 
 func block_placed() -> void:
 	block_placed_status = true
+
+
 
 func play_locked_animation() -> void:
 	if not locked:
@@ -60,8 +66,12 @@ func play_await_discard_animation() -> void:
 func play_reset_animation() -> void:
 	animation.play("RESET")
 
+
+
 func set_discard_wait_status(status: bool) -> void:
 	awaiting_discard = status
+
+
 
 func get_overlapping_areas() -> Array[Area2D]:
 	return detection_area.get_overlapping_areas()
@@ -69,9 +79,13 @@ func get_overlapping_areas() -> Array[Area2D]:
 func is_block_locked() -> bool:
 	return locked
 
+
+
 func discard() -> void:
 	animation.play("discard")
 	%discard_sound.play()
+
+
 
 func glitch_check(chance: float) -> void:
 	var shape_check: float = randf_range(0, 1)
@@ -111,25 +125,33 @@ func remove_point_from_polygon(polygon: CollisionPolygon2D, point: Vector2) -> v
 func glitch_rotation() -> void:
 	rotation_degrees *= 1 + randf()
 
+
+
 func selected_for_discard() -> void:
 	discard_chosen.emit(self)
+
+
 
 func ready_check() -> bool:
 	var status: bool = true
 	
-	if detection_area.get_overlapping_areas().is_empty():
+	if is_overlapping_obstacle() or is_out_of_bounds():
 		status = false
 		play_invalid_animation()
-		return status
-	else:
-		pass
+	
+	return status
+
+func is_overlapping_obstacle() -> bool:
+	var status = false
 	
 	for i in detection_area.get_overlapping_areas():
-		if i.is_in_group("out_of_bounds_area") or i.is_in_group("obstacle"):
-			status = false
-			play_invalid_animation()
-			return status
-		else:
-			pass
-		
+		if i.is_in_group("out_of_bound_area") or i.is_in_group("obstacle"):
+			status = true
+			
 	return status
+	
+func is_out_of_bounds() -> bool:
+	if detection_area.get_overlapping_areas().is_empty():
+		return true
+	else:
+		return false
