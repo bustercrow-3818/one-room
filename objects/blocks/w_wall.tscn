@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://calar1255j7xt"]
+[gd_scene load_steps=12 format=3 uid="uid://calar1255j7xt"]
 
 [ext_resource type="Script" uid="uid://ct1vrjqn6e7pq" path="res://objects/blocks/wall.gd" id="1_f7744"]
 [ext_resource type="PackedScene" uid="uid://cieqrfyyix101" path="res://system/components/drag_component.tscn" id="2_2x25r"]
 [ext_resource type="AudioStream" uid="uid://ycnwe7bxsc4o" path="res://assets/sounds/discard.wav" id="3_f7744"]
 [ext_resource type="AudioStream" uid="uid://bx1afk3bmm37p" path="res://assets/sounds/block_locked.wav" id="4_2x25r"]
+[ext_resource type="AudioStream" uid="uid://c8ntswh2ujjpv" path="res://assets/sounds/invalid.wav" id="5_1g5ij"]
 
 [sub_resource type="Animation" id="Animation_2ullp"]
 length = 0.001
@@ -214,13 +215,14 @@ _data = {
 &"locked_in": SubResource("Animation_8tlvn")
 }
 
-[node name="w_wall" type="StaticBody2D" node_paths=PackedStringArray("lock_line", "idle_line", "collision_polygon", "detection_polygon") groups=["obstacle"]]
+[node name="w_wall" type="StaticBody2D" node_paths=PackedStringArray("lock_line", "idle_line", "collision_polygon", "detection_polygon", "not_ready_sound") groups=["obstacle"]]
 z_index = 1
 script = ExtResource("1_f7744")
 lock_line = NodePath("locked_in_line")
 idle_line = NodePath("idle_line")
 collision_polygon = NodePath("CollisionPolygon2D2")
 detection_polygon = NodePath("mouse_detection/CollisionPolygon2D")
+not_ready_sound = NodePath("not_ready_sound")
 rotation_variation_degrees = 90
 
 [node name="drag_component" parent="." node_paths=PackedStringArray("mouse_detection_area") instance=ExtResource("2_2x25r")]
@@ -261,3 +263,6 @@ stream = ExtResource("3_f7744")
 [node name="locked_sound" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("4_2x25r")
+
+[node name="not_ready_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_1g5ij")

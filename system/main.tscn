@@ -61,6 +61,7 @@ script = ExtResource("7_io3fq")
 player = NodePath("../player_interface")
 end_of_round_penalty = 1
 pickup_value = 1
+pitch_mod_growth = 0.05
 
 [node name="goal" parent="GoalHandler" instance=ExtResource("8_jqgdb")]
 position = Vector2(160, 152)
@@ -216,7 +217,7 @@ scale = Vector2(2, 2)
 
 [node name="upgrade_handler" parent="." node_paths=PackedStringArray("player", "block_handler", "goal_handler", "mob_handler") instance=ExtResource("20_26vh2")]
 unique_name_in_owner = true
-position = Vector2(-454, 348)
+position = Vector2(-374, 420)
 scale = Vector2(1.5, 1.5)
 player = NodePath("../player_interface")
 block_handler = NodePath("../BlockHandler")

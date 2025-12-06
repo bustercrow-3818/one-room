@@ -10,6 +10,7 @@ class_name BlockHandler
 @export_category("Node References")
 @export var block_scenes: Dictionary[String, PackedScene]
 @export var discard_button: Button
+@export var not_ready_sound: AudioStreamPlayer
 
 var awaiting_discard: bool = false
 var discard_queue: Array[Block]

@@ -15,6 +15,7 @@ signal discard_chosen(id: Block)
 @export var idle_line: Line2D
 @export var collision_polygon: CollisionPolygon2D
 @export var detection_polygon: CollisionPolygon2D
+@export var not_ready_sound: AudioStreamPlayer
 
 @export_range(0, 180, 45) var rotation_variation_degrees: int
 
@@ -65,6 +66,9 @@ func play_await_discard_animation() -> void:
 
 func play_reset_animation() -> void:
 	animation.play("RESET")
+
+func play_not_ready_sound() -> void:
+	not_ready_sound.play()
 
 
 
@@ -138,6 +142,7 @@ func ready_check() -> bool:
 	if is_overlapping_obstacle() or is_out_of_bounds():
 		status = false
 		play_invalid_animation()
+		play_not_ready_sound()
 	
 	return status
 

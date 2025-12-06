@@ -6,6 +6,21 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8iwfi"]
 bg_color = Color(0, 0, 0, 1)
 
+[sub_resource type="Animation" id="Animation_jsu6g"]
+length = 0.65
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.35, 0.65),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.25, 0.25), Vector2(0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_jbyb3"]
 resource_name = "discard"
 length = 0.65
@@ -20,21 +35,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(0.5, 0.5), Vector2(0.01, 0.01)]
-}
-
-[sub_resource type="Animation" id="Animation_jsu6g"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kv1av"]
@@ -52,11 +52,10 @@ shop_discard = NodePath("VBoxContainer/PanelContainer/HBoxContainer/discard")
 metadata/_custom_type_script = "uid://cdm2fshguywsf"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-offset_left = -65.0
-offset_top = -70.0
-offset_right = 63.0
-offset_bottom = 74.0
-pivot_offset = Vector2(64.5, 70.5)
+offset_left = -64.0
+offset_top = -72.0
+offset_right = 64.0
+offset_bottom = 72.0
 
 [node name="Button" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -72,7 +71,6 @@ size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_8iwfi")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer"]
-visible = false
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 

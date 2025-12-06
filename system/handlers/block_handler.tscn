@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://calar1255j7xt" path="res://objects/blocks/w_wall.tscn" id="4_uf1mg"]
 [ext_resource type="PackedScene" uid="uid://co3p2tfu3wra0" path="res://objects/blocks/t_wall_long.tscn" id="5_g167m"]
 
-[node name="BlockHandler" type="Node2D" groups=["handler"]]
+[node name="BlockHandler" type="Node2D" node_paths=PackedStringArray("not_ready_sound") groups=["handler"]]
 script = ExtResource("1_6wgbx")
 block_scenes = Dictionary[String, PackedScene]({
 "l_wall_r": ExtResource("3_dqaie"),
@@ -14,3 +14,4 @@ block_scenes = Dictionary[String, PackedScene]({
 "t_wall_long": ExtResource("5_g167m"),
 "w_wall": ExtResource("4_uf1mg")
 })
+not_ready_sound = NodePath("")

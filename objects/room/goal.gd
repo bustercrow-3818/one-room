@@ -13,6 +13,7 @@ signal earned_by_mob
 @export var player_reward: int
 @export var penalty: int
 
+var pitch_mod: float = 1
 var ready_to_pickup: bool = true
 
 func connect_signals() -> void:
@@ -20,7 +21,7 @@ func connect_signals() -> void:
 	SignalBus.end_of_round.connect(reward_animation.bind(false))
 
 func is_mob_detected(body: Node2D) -> void:
-	if body is Mob:
+	if ready_to_pickup and body is Mob:
 		pickup_sound.play()
 		goal_picked_up.emit(self)
 
@@ -30,6 +31,8 @@ func is_ready_to_pickup() -> bool:
 func set_pickup_ready_status(status: bool) -> void:
 	ready_to_pickup = status
 
+func set_pickup_pitch(mod: float) -> void:
+	pickup_sound.pitch_scale += mod
 
 func reset_animation() -> void:
 	animation.play("RESET")
@@ -46,3 +49,7 @@ func penalty_animation(forward: bool = true) -> void:
 	else:
 		animation.play("penalty")
 	%discard_sound.play()
+
+func end_of_round() -> void:
+	pickup_sound.pitch_scale = 1
+	reward_animation(false)

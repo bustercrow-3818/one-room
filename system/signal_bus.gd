@@ -17,3 +17,4 @@ signal discarding_complete
 signal discard_specific_block(id: Block)
 signal in_discard_zone(status: bool)
 signal approved_purchase(id: Node)
+signal invalid_position

@@ -9,6 +9,7 @@ class_name UpgradeHandler
 @export var goal_handler: GoalHandler
 @export var mob_handler: MobHandler
 @export var buy_sound: AudioStreamPlayer
+@export var button_sound: AudioStreamPlayer
 
 @export_category("Shop Data")
 @export_range(0, 3) var shop_size: int
@@ -40,6 +41,7 @@ func create_upgrade(upgrade: PackedScene) -> Upgrade:
 	new_upgrade.purchased.connect(upgrade_purchased)
 	new_upgrade.shop_discard.pressed.connect(discard_upgrade.bind(new_upgrade))
 	new_upgrade.unique_upgrade.connect(remove_unique_from_pool.bind(upgrade))
+	new_upgrade.main_button.pressed.connect(play_button_sound)
 	return new_upgrade
 
 func create_random_upgrade() -> Upgrade:
@@ -93,6 +95,7 @@ func discard_upgrade(id: Upgrade) -> void:
 
 #region Flair
 
-
+func play_button_sound() -> void:
+	button_sound.play()
 
 #endregion

@@ -6,7 +6,9 @@ signal end_of_round
 @export var player: Player
 @export var end_of_round_penalty: int
 @export var pickup_value: int
+@export var pitch_mod_growth: float = 0.1
 
+var next_pitch_mod: float = 0
 var ready_for_round: bool = true
 var active_goals: Array[Goal]
 
@@ -58,9 +60,12 @@ func end_round_cleanup() -> void:
 			await i.animation.animation_finished
 			
 	SignalBus.end_of_round.emit()
+	next_pitch_mod = 0
 
 func mob_pickup(goal_id: Goal) -> void:
 	if goal_id.is_ready_to_pickup():
+		next_pitch_mod += pitch_mod_growth
+		goal_id.set_pickup_pitch(next_pitch_mod)
 		goal_id.set_pickup_ready_status(false)
 		goal_id.reward_animation()
 		SignalBus.goal_cleanup.emit(pickup_value)

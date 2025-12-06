@@ -77,7 +77,6 @@ func show_shop_interface() -> void:
 		i.show()
 
 func discard_upgrade() -> void:
-	
 	pass
 
 
