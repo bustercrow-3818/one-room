@@ -71,7 +71,8 @@ func toggle_buy_cancel_interface() -> void:
 
 func hide_shop_interface() -> void:
 	for i in get_children():
-		i.hide()
+		if i.has_method("hide"):
+			i.hide()
 
 func show_shop_interface() -> void:
 	for i in get_children():

@@ -1,0 +1,273 @@
+[gd_scene load_steps=13 format=3 uid="uid://dqnule3p7dm1k"]
+
+[ext_resource type="Script" uid="uid://ct1vrjqn6e7pq" path="res://objects/blocks/wall.gd" id="1_ac56f"]
+[ext_resource type="PackedScene" uid="uid://cieqrfyyix101" path="res://system/components/drag_component.tscn" id="2_mg6f1"]
+[ext_resource type="AudioStream" uid="uid://ycnwe7bxsc4o" path="res://assets/sounds/discard.wav" id="3_0ceei"]
+[ext_resource type="AudioStream" uid="uid://bx1afk3bmm37p" path="res://assets/sounds/block_locked.wav" id="4_8mfy4"]
+[ext_resource type="AudioStream" uid="uid://c8ntswh2ujjpv" path="res://assets/sounds/invalid.wav" id="5_31t3o"]
+[ext_resource type="AudioStream" uid="uid://bmv1gefcdjmuy" path="res://assets/sounds/place_block.wav" id="6_t7mp4"]
+
+[sub_resource type="Animation" id="Animation_2ullp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath("locked_in_line:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/path = NodePath("locked_in_line:default_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("idle_line:default_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("idle_line:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("idle_line:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_fwixb"]
+resource_name = "await_discard"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("idle_line:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.05235987755982989, 0.0, -0.05235987755982989, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("idle_line:default_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_u2sw8"]
+resource_name = "discard"
+length = 0.35
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("idle_line:default_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0625, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("idle_line:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0625, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.5, 1.5), Vector2(3, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_s0ur5"]
+resource_name = "invalid"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("idle_line:default_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("idle_line:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.10471975511965978, -0.10471975511965978, 0.10471975511965978, -0.10471975511965978, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("idle_line:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(2, 2), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8tlvn"]
+resource_name = "locked_in"
+length = 0.35
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("locked_in_line:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.35),
+"transitions": PackedFloat32Array(1, 0.176, 1),
+"update": 0,
+"values": [Vector2(3, 3), Vector2(1.5, 1.5), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("locked_in_line:default_color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0625),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0.23, 0.92, 0), Color(0, 0.22949219, 0.91796875, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("idle_line:default_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2ullp"]
+_data = {
+&"RESET": SubResource("Animation_2ullp"),
+&"await_discard": SubResource("Animation_fwixb"),
+&"discard": SubResource("Animation_u2sw8"),
+&"invalid": SubResource("Animation_s0ur5"),
+&"locked_in": SubResource("Animation_8tlvn")
+}
+
+[node name="l_wall_r" type="StaticBody2D" node_paths=PackedStringArray("lock_line", "idle_line", "collision_polygon", "detection_polygon", "not_ready_sound", "placed_sound") groups=["obstacle"]]
+z_index = 1
+script = ExtResource("1_ac56f")
+lock_line = NodePath("locked_in_line")
+idle_line = NodePath("idle_line")
+collision_polygon = NodePath("CollisionPolygon2D2")
+detection_polygon = NodePath("mouse_detection/CollisionPolygon2D")
+not_ready_sound = NodePath("not_ready_sound")
+placed_sound = NodePath("placed_sound")
+rotation_variation_degrees = 90
+
+[node name="drag_component" parent="." node_paths=PackedStringArray("mouse_detection_area") instance=ExtResource("2_mg6f1")]
+mouse_detection_area = NodePath("../mouse_detection")
+latching = true
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-32, -96, -32, -32, -32, 32, 33, 32, 96, 32, 96, -32, 96, -96, 32, -96)
+
+[node name="mouse_detection" type="Area2D" parent="." groups=["obstacle"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="mouse_detection"]
+polygon = PackedVector2Array(-31, -95, -31, -31, -31, 31, 31, 31, 95, 31, 95, -31, 95, -95, 31, -95)
+
+[node name="sprites" type="Node2D" parent="."]
+
+[node name="locked_in_line" type="Line2D" parent="."]
+scale = Vector2(3, 3)
+points = PackedVector2Array(96, -32, 96, 32, 32, 32, -32, 32, -32, -32, -32, -96, 32, -96, 96, -96)
+closed = true
+width = 2.0
+default_color = Color(0, 0.23, 0.92, 0)
+
+[node name="idle_line" type="Line2D" parent="."]
+points = PackedVector2Array(96, -32, 96, 32, 32, 32, -32, 32, -32, -32, -32, -96, 32, -96, 96, -96)
+closed = true
+width = 2.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_2ullp")
+}
+
+[node name="discard_sound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_0ceei")
+
+[node name="locked_sound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("4_8mfy4")
+
+[node name="not_ready_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_31t3o")
+
+[node name="placed_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_t7mp4")
