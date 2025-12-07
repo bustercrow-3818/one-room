@@ -18,6 +18,7 @@ signal unique_upgrade(id: Upgrade)
 @export var buy_cancel_container: HBoxContainer
 @export var buy: Button
 @export var shop_discard: Button
+@export var animation: AnimationPlayer
 var player: Player
 var block_handler: BlockHandler
 var mob_handler: MobHandler
@@ -77,7 +78,9 @@ func show_shop_interface() -> void:
 		i.show()
 
 func discard_upgrade() -> void:
-	pass
+	animation.play("discard")
+	await animation.animation_finished
+	queue_free()
 
 
 

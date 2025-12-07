@@ -61,7 +61,7 @@ script = ExtResource("7_io3fq")
 player = NodePath("../player_interface")
 end_of_round_penalty = 1
 pickup_value = 1
-pitch_mod_growth = 0.05
+pitch_mod_growth = 0.03
 
 [node name="goal" parent="GoalHandler" instance=ExtResource("8_jqgdb")]
 position = Vector2(160, 152)

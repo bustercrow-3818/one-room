@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://cctcr3t8xb2xx"]
+[gd_scene load_steps=10 format=3 uid="uid://cctcr3t8xb2xx"]
 
 [ext_resource type="Script" uid="uid://cdm2fshguywsf" path="res://objects/upgrades/base_upgrade.gd" id="1_jbyb3"]
 [ext_resource type="Theme" uid="uid://crgofrwwljspq" path="res://assets/themes/button.tres" id="2_jsu6g"]
+[ext_resource type="AudioStream" uid="uid://ycnwe7bxsc4o" path="res://assets/sounds/discard.wav" id="3_jsu6g"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8iwfi"]
 bg_color = Color(0, 0, 0, 1)
@@ -11,15 +12,67 @@ length = 0.65
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
+tracks/0/path = NodePath("VBoxContainer:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.35, 0.65),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(0.25, 0.25), Vector2(0, 0)]
+"values": [0.0]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VBoxContainer/Button:theme_override_colors/font_color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [null]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("VBoxContainer/Button:theme_override_styles/normal")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jsu6g"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.24858868, 0.82421875, 0.18351746, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kv1av"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_jbyb3"]
 resource_name = "discard"
@@ -27,14 +80,65 @@ length = 0.65
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
+tracks/0/path = NodePath("VBoxContainer:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.65),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.025, 0.05, 0.075, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(1, 1), Vector2(0.5, 0.5), Vector2(0.01, 0.01)]
+"values": [0.0, 0.10471975511965978, -0.10471975511965978, 0.10471975511965978, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("3_jsu6g")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/2/use_blend = true
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("VBoxContainer/Button:theme_override_colors/font_color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.24858868, 0.82421875, 0.18351746, 1), Color(1, 0, 0, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("VBoxContainer/Button:theme_override_styles/normal")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.05, 0.099999994),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [SubResource("StyleBoxFlat_jsu6g"), SubResource("StyleBoxFlat_kv1av")]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kv1av"]
@@ -43,12 +147,13 @@ _data = {
 &"discard": SubResource("Animation_jbyb3")
 }
 
-[node name="name" type="Node2D" node_paths=PackedStringArray("main_button", "buy_cancel_container", "buy", "shop_discard")]
+[node name="name" type="Node2D" node_paths=PackedStringArray("main_button", "buy_cancel_container", "buy", "shop_discard", "animation")]
 script = ExtResource("1_jbyb3")
 main_button = NodePath("VBoxContainer/Button")
 buy_cancel_container = NodePath("VBoxContainer/PanelContainer/HBoxContainer")
 buy = NodePath("VBoxContainer/PanelContainer/HBoxContainer/buy")
 shop_discard = NodePath("VBoxContainer/PanelContainer/HBoxContainer/discard")
+animation = NodePath("AnimationPlayer")
 metadata/_custom_type_script = "uid://cdm2fshguywsf"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -92,3 +197,5 @@ text = "Discard"
 libraries = {
 &"": SubResource("AnimationLibrary_kv1av")
 }
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

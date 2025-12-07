@@ -16,6 +16,7 @@ signal discard_chosen(id: Block)
 @export var collision_polygon: CollisionPolygon2D
 @export var detection_polygon: CollisionPolygon2D
 @export var not_ready_sound: AudioStreamPlayer
+@export var placed_sound: AudioStreamPlayer
 
 @export_range(0, 180, 45) var rotation_variation_degrees: int
 
@@ -69,6 +70,9 @@ func play_reset_animation() -> void:
 
 func play_not_ready_sound() -> void:
 	not_ready_sound.play()
+
+func play_placed_sound() -> void:
+	placed_sound.play()
 
 
 

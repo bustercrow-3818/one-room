@@ -19,7 +19,6 @@ func initialize() -> void:
 func connect_signals() -> void:
 	SignalBus.round_start.connect(round_start)
 	SignalBus.end_of_round.connect(end_of_round)
-	SignalBus.bits_spent.connect(adjust_bits)
 	SignalBus.goal_cleanup.connect(adjust_bits)
 	SignalBus.cost_check.connect(process_cost_check)
 

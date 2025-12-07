@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://djjkl08ldxl4m"]
+[gd_scene load_steps=10 format=3 uid="uid://djjkl08ldxl4m"]
 
 [ext_resource type="Script" uid="uid://d2gbydndabotm" path="res://system/handlers/upgrade_handler.gd" id="1_gqsiv"]
 [ext_resource type="PackedScene" uid="uid://cqypgekn6fnmc" path="res://objects/upgrades/less_is_more.tscn" id="2_bju3k"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bb5g826s4kwj" path="res://objects/upgrades/bogo.tscn" id="4_ftpwb"]
 [ext_resource type="PackedScene" uid="uid://ceefsyhg53i18" path="res://objects/upgrades/vaccinate.tscn" id="5_0k53b"]
 [ext_resource type="PackedScene" uid="uid://cc2spwld4ycro" path="res://objects/upgrades/frugality.tscn" id="6_xjy8v"]
+[ext_resource type="Script" uid="uid://dgs57lfisduam" path="res://system/handlers/shop.gd" id="7_bacff"]
 [ext_resource type="AudioStream" uid="uid://qhtu6xc60pna" path="res://assets/sounds/button_pressed.wav" id="8_ngni8"]
 
 [node name="upgrade_handler" type="Node2D" node_paths=PackedStringArray("buy_sound", "button_sound") groups=["handler"]]
@@ -17,6 +18,7 @@ button_sound = NodePath("button_sound")
 upgrade_spacing = Vector2(228, 0)
 
 [node name="shop" type="Node2D" parent="."]
+script = ExtResource("7_bacff")
 
 [node name="upgrade_sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_dkct5")

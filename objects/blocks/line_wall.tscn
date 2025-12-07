@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://bu3noje23840c"]
+[gd_scene load_steps=13 format=3 uid="uid://bu3noje23840c"]
 
 [ext_resource type="Script" uid="uid://ct1vrjqn6e7pq" path="res://objects/blocks/wall.gd" id="1_whhb0"]
 [ext_resource type="PackedScene" uid="uid://cieqrfyyix101" path="res://system/components/drag_component.tscn" id="2_cbadb"]
 [ext_resource type="AudioStream" uid="uid://ycnwe7bxsc4o" path="res://assets/sounds/discard.wav" id="4_2el2o"]
 [ext_resource type="AudioStream" uid="uid://bx1afk3bmm37p" path="res://assets/sounds/block_locked.wav" id="5_hg7h6"]
 [ext_resource type="AudioStream" uid="uid://c8ntswh2ujjpv" path="res://assets/sounds/invalid.wav" id="5_s20yn"]
+[ext_resource type="AudioStream" uid="uid://bmv1gefcdjmuy" path="res://assets/sounds/place_block.wav" id="6_s20yn"]
 
 [sub_resource type="Animation" id="Animation_2ullp"]
 length = 0.001
@@ -215,7 +216,7 @@ _data = {
 &"locked_in": SubResource("Animation_8tlvn")
 }
 
-[node name="line_wall" type="StaticBody2D" node_paths=PackedStringArray("lock_line", "idle_line", "collision_polygon", "detection_polygon", "not_ready_sound") groups=["obstacle"]]
+[node name="line_wall" type="StaticBody2D" node_paths=PackedStringArray("lock_line", "idle_line", "collision_polygon", "detection_polygon", "not_ready_sound", "placed_sound") groups=["obstacle"]]
 z_index = 1
 script = ExtResource("1_whhb0")
 lock_line = NodePath("locked_in_line")
@@ -223,6 +224,7 @@ idle_line = NodePath("idle_line")
 collision_polygon = NodePath("CollisionPolygon2D")
 detection_polygon = NodePath("mouse_detection/CollisionPolygon2D")
 not_ready_sound = NodePath("not_ready_sound")
+placed_sound = NodePath("placed_sound")
 rotation_variation_degrees = 90
 
 [node name="drag_component" parent="." node_paths=PackedStringArray("mouse_detection_area") instance=ExtResource("2_cbadb")]
@@ -266,3 +268,6 @@ stream = ExtResource("5_hg7h6")
 
 [node name="not_ready_sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_s20yn")
+
+[node name="placed_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_s20yn")

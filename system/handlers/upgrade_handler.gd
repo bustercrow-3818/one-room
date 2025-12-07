@@ -14,7 +14,9 @@ class_name UpgradeHandler
 @export_category("Shop Data")
 @export_range(0, 3) var shop_size: int
 @export var upgrade_spacing: Vector2
+@export var discard_upgrade_cost: int = 2
 
+var discard_request_id: Upgrade
 var shop_pool: Array[Upgrade]
 
 func initialize() -> void:
@@ -39,7 +41,7 @@ func create_upgrade(upgrade: PackedScene) -> Upgrade:
 	call_deferred("add_child", new_upgrade)
 	initialize_upgrade(new_upgrade)
 	new_upgrade.purchased.connect(upgrade_purchased)
-	new_upgrade.shop_discard.pressed.connect(discard_upgrade.bind(new_upgrade))
+	new_upgrade.shop_discard.pressed.connect(discard_purchase_request.bind(new_upgrade))
 	new_upgrade.unique_upgrade.connect(remove_unique_from_pool.bind(upgrade))
 	new_upgrade.main_button.pressed.connect(play_button_sound)
 	return new_upgrade
@@ -85,10 +87,19 @@ func update_shop_positions() -> void:
 		i.position = current_offset
 		current_offset += upgrade_spacing
 
+func discard_purchase_request(id: Upgrade) -> void:
+	discard_request_id = id
+	SignalBus.cost_check.emit(self, discard_upgrade_cost)
+
+func cost_approved() -> void:
+	await discard_upgrade(discard_request_id)
+	shop_pool.erase(discard_request_id)
+	add_upgrade_to_shop(create_random_upgrade())
+	update_shop_positions()
+
 func discard_upgrade(id: Upgrade) -> void:
 	await id.discard_upgrade()
-	
-	pass
+
 
 
 #endregion

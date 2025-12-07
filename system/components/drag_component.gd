@@ -58,6 +58,7 @@ func dragging() -> void:
 	
 	if Input.is_action_just_released("left_mouse"):
 		SignalBus.block_snapped.emit()
+		parent.play_placed_sound()
 		snap_to_position()
 		change_state(states.IDLE)
 
